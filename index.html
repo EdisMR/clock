@@ -1,45 +1,88 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Hora Actual</title>
+    <link rel="icon" type="image/png" href="./82280.png">
+    <title>Hora de Costa Rica</title>
     <style>
-        body {
-            font-family: sans-serif;
+        body,
+        html {
+            font-family: 'Segoe UI', Tahoma, Roboto, sans-serif;
             text-align: center;
-            margin-top: 20%;
+            background-color: #181818;
+            user-select: none;
+            user-drag: none;
+            pointer-events: none;
         }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
         #reloj {
-            font-size: 3rem;
+            font-size: 150px;
             font-weight: bold;
-            color: #333;
+            color: #dddddd;
+        }
+
+        #date {
+            font-size: 60px;
+            color: #b9b9b9;
         }
     </style>
 </head>
-<body>
 
-    <!-- Etiqueta semántica HTML para la hora -->
-    <p>La hora actual es:</p>
-    <time id="reloj" datetime="">--:--:--</time>
+<body>
+    <container class="content">
+        <!-- Etiqueta semántica HTML para la hora -->
+        <p id="date"></p>
+        <time id="reloj" datetime="">--:--:--</time>
+    </container>
 
     <script>
-        function actualizarHora() {
-            const ahora = new Date();
-            const horas = String(ahora.getHours()).padStart(2, '0');
-            const minutos = String(ahora.getMinutes()).padStart(2, '0');
-            const segundos = String(ahora.getSeconds()).padStart(2, '0');
-            
-            const horaTexto = `${horas}:${minutos}:${segundos}`;
-            
-            const elementoReloj = document.getElementById('reloj');
-            elementoReloj.textContent = horaTexto;
-            elementoReloj.setAttribute('datetime', horaTexto);
+        const TIMEZONE = "America/Costa_Rica";
+        const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const elementoReloj = document.getElementById('reloj');
+        const elementoFecha = document.getElementById('date');
+
+        function obtenerFechaLocal() {
+            return new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE }));
         }
 
-        // Actualiza el reloj cada segundo
-        setInterval(actualizarHora, 1000);
-        actualizarHora(); // Ejecutar de inmediato al cargar
+        function formatearHora(fecha) {
+            const horas = String(fecha.getHours()).padStart(2, '0');
+            const minutos = String(fecha.getMinutes()).padStart(2, '0');
+            const segundos = String(fecha.getSeconds()).padStart(2, '0');
+            return `${horas}:${minutos}:${segundos}`;
+        }
+
+        function formatearFecha(fecha) {
+            const anio = fecha.getFullYear();
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const diaSemana = DIAS_SEMANA[fecha.getDay()];
+            return `${diaSemana}, ${anio}-${mes}-${dia}`;
+        }
+
+        function actualizar() {
+            const ahora = obtenerFechaLocal();
+            const horaTexto = formatearHora(ahora);
+            const fechaTexto = formatearFecha(ahora);
+
+            elementoReloj.textContent = horaTexto;
+            elementoReloj.setAttribute('datetime', horaTexto);
+            elementoFecha.textContent = fechaTexto;
+        }
+
+        actualizar();
+        setInterval(actualizar, 1000);
     </script>
 
 </body>
+
 </html>
