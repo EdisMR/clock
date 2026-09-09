@@ -14,6 +14,11 @@
             user-select: none;
             user-drag: none;
             pointer-events: none;
+            background-image: url('./background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .content {
@@ -24,15 +29,36 @@
             height: 100vh;
         }
 
+        #date {
+            font-size: 60px;
+            color: #ffffff;
+            padding: 20px 60px;
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px rgba(14, 13, 13, 0.5);
+        }
+
         #reloj {
             font-size: 150px;
             font-weight: bold;
             color: #dddddd;
+            padding: 20px 60px;
+            text-shadow: 0 0 10px rgba(14, 13, 13, 0.5);
         }
 
-        #date {
-            font-size: 60px;
-            color: #b9b9b9;
+        .vidrio-esmerilado {
+            /* Color de fondo blanco con opacidad */
+            background: rgba(66, 63, 63, 0.199);
+
+            /* Efecto de desenfoque del fondo */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* Para soporte en Safari */
+
+            /* Bordes suaves y redondeados */
+            border-radius: 16px;
+
+            /* Sombra para dar profundidad */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -40,8 +66,8 @@
 <body>
     <container class="content">
         <!-- Etiqueta semántica HTML para la hora -->
-        <p id="date"></p>
-        <time id="reloj" datetime="">--:--:--</time>
+        <p id="date" class="vidrio-esmerilado"></p>
+        <time id="reloj" datetime="" class="vidrio-esmerilado">--:--:--</time>
     </container>
 
     <script>
