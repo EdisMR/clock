@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Hora Actual</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 20%;
+        }
+        #reloj {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Etiqueta semántica HTML para la hora -->
+    <p>La hora actual es:</p>
+    <time id="reloj" datetime="">--:--:--</time>
+
+    <script>
+        function actualizarHora() {
+            const ahora = new Date();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            
+            const horaTexto = `${horas}:${minutos}:${segundos}`;
+            
+            const elementoReloj = document.getElementById('reloj');
+            elementoReloj.textContent = horaTexto;
+            elementoReloj.setAttribute('datetime', horaTexto);
+        }
+
+        // Actualiza el reloj cada segundo
+        setInterval(actualizarHora, 1000);
+        actualizarHora(); // Ejecutar de inmediato al cargar
+    </script>
+
+</body>
+</html>
