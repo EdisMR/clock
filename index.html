@@ -31,7 +31,7 @@
         #date {
             font-size: 50px;
             color: #ffffff;
-            padding: 20px 60px;
+            padding: 0px 25px;
             margin-bottom: 50px;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.534);
         }
@@ -40,7 +40,7 @@
             font-size: 150px;
             font-weight: bold;
             color: #dddddd;
-            padding: 20px 60px;
+            padding: 0px 30px;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.473);
         }
 
@@ -124,6 +124,10 @@
         const elementoReloj = document.getElementById('reloj');
         const elementoFecha = document.getElementById('date');
 
+        // Cache for date formatting to avoid repeated calculations
+        let lastDate = null;
+        let cachedFecha = '';
+
         function obtenerFechaLocal() {
             return new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE }));
         }
@@ -136,11 +140,17 @@
         }
 
         function formatearFecha(fecha) {
-            const anio = fecha.getFullYear();
-            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-            const dia = String(fecha.getDate()).padStart(2, '0');
-            const diaSemana = DIAS_SEMANA[fecha.getDay()];
-            return `${diaSemana}, ${anio}-${mes}-${dia}`;
+            const dia = fecha.getDate();
+            // Only recalculate if date changed
+            if (lastDate !== dia) {
+                lastDate = dia;
+                const anio = fecha.getFullYear();
+                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+                const diaStr = String(dia).padStart(2, '0');
+                const diaSemana = DIAS_SEMANA[fecha.getDay()];
+                cachedFecha = `${diaSemana}, ${anio}-${mes}-${diaStr}`;
+            }
+            return cachedFecha;
         }
 
         function actualizar() {
@@ -155,7 +165,6 @@
 
         actualizar();
         setInterval(actualizar, 1000);
-
 
         const wallpapers = [
             "vdd(3).mp4",
@@ -176,36 +185,27 @@
             "vdd(16).webm",
             "vdd(17).webm",
             "vdd(18).mp4",
-        ]
+        ];
 
         const changeWallpaperButton = document.getElementById('changeWallpaper');
         const videoElement = document.getElementById('myVideo');
-        let currentWallpaper = localStorage.getItem('currentWallpaper') ? parseInt(localStorage.getItem('currentWallpaper')) : 0;
+        let currentWallpaper = parseInt(localStorage.getItem('currentWallpaper') || '0');
         videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
 
         function changeWallpaper() {
-            if (currentWallpaper < wallpapers.length - 1) {
-                currentWallpaper++;
-            } else {
-                currentWallpaper = 0;
-            }
+            currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
             videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
-
             localStorage.setItem('currentWallpaper', currentWallpaper);
         }
 
         changeWallpaperButton.addEventListener('click', changeWallpaper);
 
-
-        /* date click fullscreen */
-        const dateElement = document.getElementById('date');
-        dateElement.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
+        // Date click fullscreen
+        elementoFecha.addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
+                document.documentElement.requestFullscreen().catch(() => { });
             }
         });
     </script>
