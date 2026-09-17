@@ -5,118 +5,170 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="./82280.png">
     <title>Hora de Costa Rica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Cache-Control" content="max-age=86400">
 
     <style>
-        body,
         html {
-            font-family: 'Segoe UI', Tahoma, Roboto, sans-serif;
-            text-align: center;
-            background-color: #181818;
             margin: 0;
             padding: 0;
-            overflow: hidden;
         }
 
-        .content {
+        body {
+            background-color: #141414;
+        }
+
+        .main-content {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 70vh;
             user-select: none;
             user-drag: none;
+            background: rgba(51, 131, 127, 0.5);
+            width: 100vw;
+            height: 60vh;
+            text-align: center;
         }
 
         #date {
-            font-size: 50px;
             color: #ffffff;
-            padding: 0px 25px;
-            margin-bottom: 50px;
+            padding: 0px 10px;
+            font-size: 30px;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.534);
+            margin-bottom: 20px;
         }
-
+        
         #reloj {
-            font-size: 150px;
             font-weight: bold;
             color: #dddddd;
-            padding: 0px 30px;
+            padding: 0px 10px;
+            font-size: 65px;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.473);
         }
 
         .vidrio-esmerilado {
-            /* Color de fondo blanco con opacidad */
             background: rgba(66, 63, 63, 0.199);
-
-            /* Efecto de desenfoque del fondo */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            /* Para soporte en Safari */
-
-            /* Bordes suaves y redondeados */
             border-radius: 16px;
-
-            /* Sombra para dar profundidad */
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Style the video: 100% width and height to cover the entire window */
         #myVideo {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
             filter: brightness(0.7);
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
 
-        /* Add some content at the bottom of the video/page */
-        .content {
-            background: rgba(0, 0, 0, 0.5);
-            color: #f1f1f1;
-            width: 100%;
-            padding: 20px;
-        }
-
-        #changeWallpaper {
+        .changeWallpaper {
             position: fixed;
             bottom: 50px;
-            right: 50px;
             background-color: rgba(57, 209, 27, 0);
             color: #fff;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            width: 200px;
-            height: 100px;
+            width: 30vw;
+            height: 20vh;
             transition: all 0.2s ease-in-out;
         }
 
-        #changeWallpaper:hover {
+        .changeWallpaper:hover {
             background-color: rgba(58, 58, 58, 0.315);
             scale: 1.05;
         }
 
-        #changeWallpaper:active {
+        .changeWallpaper:active {
             background-color: rgba(190, 190, 190, 0.76);
             scale: 0.95;
+        }
+
+        #wallpaperNext {
+            right: 50px;
+        }
+
+        #WallpaperLast {
+            left: 50px;
+        }
+
+        @media (max-width: 1200px) {
+            #date {
+                font-size: 60px;
+            }
+
+            #reloj {
+                font-size: 100px;
+            }
+
+            .changeWallpaper {
+                width: 40vw;
+                height: 15vh;
+            }
+        }
+        @media (max-width: 600px) {
+            #date {
+                font-size: 40px;
+            }
+
+            #reloj {
+                font-size: 70px;
+            }
+
+            .changeWallpaper {
+                width: 40vw;
+                height: 15vh;
+            }
+        }
+        @media (min-width: 1200px) {
+            #date {
+                font-size: 65px;
+            }
+
+            #reloj {
+                font-size: 120px;
+            }
+
+            .changeWallpaper {
+                width: 20vw;
+                height: 25vh;
+            }
+        }
+        @media (min-width: 1700px) {
+            #date {
+                font-size: 90px;
+            }
+
+            #reloj {
+                font-size: 170px;
+            }
+
+            .changeWallpaper {
+                width: 20vw;
+                height: 25vh;
+            }
         }
     </style>
 </head>
 
 <body>
-    <video autoplay muted loop id="myVideo">
-        <source src="./wallpapers/a79b173d93_minecraft-coral-reef-live-wallpaper_x265.mp4" type="video/mp4">
-    </video>
 
-    <container class="content">
-        <!-- Etiqueta semántica HTML para la hora -->
-        <p id="date" class="vidrio-esmerilado"></p>
-        <time id="reloj" datetime="" class="vidrio-esmerilado">--:--:--</time>
+    <container class="main-content">
+        <section id="video-container">
+            <video autoplay muted loop id="myVideo">
+                <source src="./wallpapers/a79b173d93_minecraft-coral-reef-live-wallpaper_x265.mp4" type="video/mp4">
+            </video>
+        </section>
+        <section id="datetime-container">
+            <p id="date" class="vidrio-esmerilado"></p>
+            <time id="reloj" datetime="" class="vidrio-esmerilado">--:--:--</time>
+            <div id="wallpaperNext" class="changeWallpaper"></div>
+            <div id="WallpaperLast" class="changeWallpaper"></div>
+        </section>
     </container>
 
-    <div id="changeWallpaper"></div>
 
     <script>
         const TIMEZONE = "America/Costa_Rica";
@@ -187,18 +239,25 @@
             "vdd(18).mp4",
         ];
 
-        const changeWallpaperButton = document.getElementById('changeWallpaper');
+        const wallpaperNext = document.getElementById('wallpaperNext');
+        const WallpaperLast = document.getElementById('WallpaperLast');
+
         const videoElement = document.getElementById('myVideo');
         let currentWallpaper = parseInt(localStorage.getItem('currentWallpaper') || '0');
         videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
 
-        function changeWallpaper() {
-            currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
+        function changeWallpaper(movement) {
+            if (movement === 'next') {
+                currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
+            } else if (movement === 'last') {
+                currentWallpaper = (currentWallpaper - 1 + wallpapers.length) % wallpapers.length;
+            }
             videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
             localStorage.setItem('currentWallpaper', currentWallpaper);
         }
 
-        changeWallpaperButton.addEventListener('click', changeWallpaper);
+        wallpaperNext.addEventListener('click', () => changeWallpaper('next'));
+        WallpaperLast.addEventListener('click', () => changeWallpaper('last'));
 
         // Date click fullscreen
         elementoFecha.addEventListener('click', () => {
