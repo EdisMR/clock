@@ -17,6 +17,8 @@
 
         body {
             background-color: #141414;
+            margin: 0;
+            padding: 0;
         }
 
         .main-content {
@@ -38,7 +40,7 @@
             margin-bottom: 20px;
             padding: 0px 20px;
         }
-        
+
         #reloj {
             font-weight: bold;
             color: #dddddd;
@@ -76,6 +78,7 @@
             width: 30vw;
             height: 20vh;
             transition: all 0.2s ease-in-out;
+            /* border: 2px solid rgba(255, 255, 255, 0.2); */
         }
 
         .changeWallpaper:hover {
@@ -96,20 +99,6 @@
             left: 50px;
         }
 
-        @media (max-width: 1200px) {
-            #date {
-                font-size: 60px;
-            }
-
-            #reloj {
-                font-size: 100px;
-            }
-
-            .changeWallpaper {
-                width: 40vw;
-                height: 15vh;
-            }
-        }
         @media (max-width: 600px) {
             #date {
                 font-size: 40px;
@@ -120,10 +109,25 @@
             }
 
             .changeWallpaper {
-                width: 40vw;
-                height: 15vh;
+                height: 30vh;
             }
         }
+
+        @media (min-width: 601px) and (max-width: 1200px) {
+            #date {
+                font-size: 60px;
+            }
+
+            #reloj {
+                font-size: 100px;
+            }
+
+            .changeWallpaper {
+                width: 30vw;
+                height: 20vh;
+            }
+        }
+
         @media (min-width: 1200px) {
             #date {
                 font-size: 65px;
@@ -134,10 +138,11 @@
             }
 
             .changeWallpaper {
-                width: 20vw;
-                height: 25vh;
+                width: 30vw;
+                height: 30vh;
             }
         }
+
         @media (min-width: 1700px) {
             #date {
                 font-size: 90px;
@@ -149,7 +154,7 @@
 
             .changeWallpaper {
                 width: 20vw;
-                height: 25vh;
+                height: 20vh;
             }
         }
     </style>
@@ -243,9 +248,10 @@
 
         const wallpaperNext = document.getElementById('wallpaperNext');
         const WallpaperLast = document.getElementById('WallpaperLast');
-
+        const reloj = document.getElementById('reloj');
         const videoElement = document.getElementById('myVideo');
         let currentWallpaper = parseInt(localStorage.getItem('currentWallpaper') || '0');
+
         videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
 
         function changeWallpaper(movement) {
@@ -269,6 +275,17 @@
                 document.documentElement.requestFullscreen().catch(() => { });
             }
         });
+
+        reloj.addEventListener('click', () => {
+            playPause();
+        });
+        function playPause() {
+            if (videoElement.paused) {
+                videoElement.play();
+            } else {
+                videoElement.pause();
+            }
+        }
     </script>
 
 </body>
