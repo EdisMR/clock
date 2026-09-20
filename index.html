@@ -35,10 +35,11 @@
         #date {
             color: #ffffff;
             padding: 0px 10px;
-            font-size: 30px;
+            font-size: 20px;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.534);
             margin-bottom: 20px;
             padding: 0px 20px;
+            font-weight: lighter;
         }
 
         #reloj {
@@ -51,15 +52,15 @@
         }
 
         .vidrio-esmerilado {
-            background: rgba(66, 63, 63, 0.199);
-            backdrop-filter: blur(20px);
+            background: rgba(88, 84, 84, 0.199);
+            backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
         #myVideo {
-            filter: brightness(0.7);
+            filter: brightness(0.73);
             width: 100vw;
             height: 100vh;
             object-fit: cover;
@@ -99,9 +100,18 @@
             left: 50px;
         }
 
+        #debug-info {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 20px;
+            color: greenyellow;
+            display: none;
+        }
+
         @media (max-width: 600px) {
             #date {
-                font-size: 40px;
+                font-size: 33px;
             }
 
             #reloj {
@@ -115,7 +125,7 @@
 
         @media (min-width: 601px) and (max-width: 1200px) {
             #date {
-                font-size: 60px;
+                font-size: 45px;
             }
 
             #reloj {
@@ -130,7 +140,7 @@
 
         @media (min-width: 1200px) {
             #date {
-                font-size: 65px;
+                font-size: 55px;
             }
 
             #reloj {
@@ -145,7 +155,7 @@
 
         @media (min-width: 1700px) {
             #date {
-                font-size: 90px;
+                font-size: 75px;
             }
 
             #reloj {
@@ -174,6 +184,7 @@
             <div id="wallpaperNext" class="changeWallpaper"></div>
             <div id="WallpaperLast" class="changeWallpaper"></div>
         </section>
+        <section id="debug-info">INFO</section>
     </container>
 
 
@@ -279,12 +290,32 @@
         reloj.addEventListener('click', () => {
             playPause();
         });
+        reloj.addEventListener('contextmenu', () => {
+            switchDebugInfo();
+        });
         function playPause() {
             if (videoElement.paused) {
                 videoElement.play();
             } else {
                 videoElement.pause();
             }
+        }
+        function switchDebugInfo() {
+            const debugInfo = document.getElementById('debug-info');
+            if (debugInfo.style.display === 'none') {
+                debugInfo.style.display = 'block';
+                displayDebugInfo();
+            } else {
+                debugInfo.style.display = 'none';
+            }
+        }
+        function displayDebugInfo() {
+            const debugInfo = document.getElementById('debug-info');
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            debugInfo.textContent = `Screen: ${screenWidth}x${screenHeight} | Window: ${windowWidth}x${windowHeight}`;
         }
     </script>
 
