@@ -107,6 +107,7 @@
             font-size: 20px;
             color: greenyellow;
             display: none;
+            text-align: left;
         }
 
         @media (max-width: 600px) {
@@ -119,7 +120,7 @@
             }
 
             .changeWallpaper {
-                height: 30vh;
+                height: 20vh;
             }
         }
 
@@ -133,7 +134,7 @@
             }
 
             .changeWallpaper {
-                width: 30vw;
+                width: 25vw;
                 height: 20vh;
             }
         }
@@ -148,8 +149,8 @@
             }
 
             .changeWallpaper {
-                width: 30vw;
-                height: 30vh;
+                width: 25vw;
+                height: 20vh;
             }
         }
 
@@ -293,6 +294,7 @@
         reloj.addEventListener('contextmenu', () => {
             switchDebugInfo();
         });
+
         function playPause() {
             if (videoElement.paused) {
                 videoElement.play();
@@ -311,12 +313,16 @@
         }
         function displayDebugInfo() {
             const debugInfo = document.getElementById('debug-info');
-            const screenWidth = window.screen.width;
-            const screenHeight = window.screen.height;
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            debugInfo.textContent = `Screen: ${screenWidth}x${screenHeight} | Window: ${windowWidth}x${windowHeight}`;
+            const wScreen = window.screen;
+            debugInfo.innerHTML = `Version:2026092001<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
         }
+
+        /* window.addEventListener('resize', () => {
+            displayDebugInfo();
+        });
+        switchDebugInfo();
+        switchDebugInfo(); */
+
     </script>
 
 </body>
