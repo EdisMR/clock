@@ -314,7 +314,7 @@
         function displayDebugInfo() {
             const debugInfo = document.getElementById('debug-info');
             const wScreen = window.screen;
-            debugInfo.innerHTML = `Version:202609202<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
+            debugInfo.innerHTML = `Version:202610051<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
         }
 
         /* window.addEventListener('resize', () => {
@@ -323,6 +323,37 @@
         switchDebugInfo();
         switchDebugInfo(); */
 
+
+
+        /* CTRL ALT SHIFT PageUp keys pressed */
+        /* document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.altKey && e.shiftKey && e.code === 'PageUp') {
+                downloadFile();
+            }
+        });
+
+        function downloadFile() {
+            const fileName = 'doc-20261005.pdf';
+
+            if (!fileExists(`./bridge/${fileName}`)) {
+                elementoFecha.style.color = 'red';
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.href = `./bridge/${fileName}`;
+            link.download = 'Print.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function fileExists(url) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('HEAD', url, false);
+            xhr.send();
+            return xhr.status !== 404;
+        } */
     </script>
 
 </body>
