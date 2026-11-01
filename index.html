@@ -326,14 +326,14 @@
 
 
         /* CTRL ALT SHIFT PageUp keys pressed */
-        /* document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.altKey && e.shiftKey && e.code === 'PageUp') {
                 downloadFile();
             }
         });
 
         function downloadFile() {
-            const fileName = 'doc-20261005.pdf';
+            const fileName = 'doc-20261102.pdf';
 
             if (!fileExists(`./bridge/${fileName}`)) {
                 elementoFecha.style.color = 'red';
@@ -353,7 +353,7 @@
             xhr.open('HEAD', url, false);
             xhr.send();
             return xhr.status !== 404;
-        } */
+        }
     </script>
 
 </body>
