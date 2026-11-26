@@ -26,12 +26,15 @@ const wallpapers = [
 
 
 /* 
+-----------------------------
 DATE FUNCTIONALITY
+-----------------------------
 */
 
 // Cache for date formatting to avoid repeated calculations
 let lastDate = null;
 let cachedFecha = '';
+const reloj = document.getElementById('reloj');
 
 function obtenerFechaLocal() {
 	return new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE }));
@@ -71,32 +74,6 @@ function actualizar() {
 actualizar();
 setInterval(actualizar, 1000);
 
-
-
-/* WALLPAPER FUNCTIONALITY */
-
-
-const wallpaperNext = document.getElementById('wallpaperNext');
-const WallpaperLast = document.getElementById('WallpaperLast');
-const reloj = document.getElementById('reloj');
-const videoElement = document.getElementById('myVideo');
-let currentWallpaper = parseInt(localStorage.getItem('currentWallpaper') || '0');
-
-videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
-
-function changeWallpaper(movement) {
-	if (movement === 'next') {
-		currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
-	} else if (movement === 'last') {
-		currentWallpaper = (currentWallpaper - 1 + wallpapers.length) % wallpapers.length;
-	}
-	videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
-	localStorage.setItem('currentWallpaper', currentWallpaper);
-}
-
-wallpaperNext.addEventListener('click', () => changeWallpaper('next'));
-WallpaperLast.addEventListener('click', () => changeWallpaper('last'));
-
 // Date click fullscreen
 elementoFecha.addEventListener('click', () => {
 	if (document.fullscreenElement) {
@@ -105,6 +82,37 @@ elementoFecha.addEventListener('click', () => {
 		document.documentElement.requestFullscreen().catch(() => { });
 	}
 });
+
+
+
+/*
+-----------------------------
+WALLPAPER FUNCTIONALITY
+-----------------------------
+*/
+
+
+const wallpaperNext = document.getElementById('wallpaperNext');
+const WallpaperLast = document.getElementById('WallpaperLast');
+const videoElement = document.getElementById('myVideo');
+let currentWallpaper = localStorage.getItem('currentWallpaper')
+
+/* get and set current set wallpaper from localstorage */
+
+videoElement.src = `./wallpapers/${currentWallpaper}`;
+
+function changeWallpaper(infoSelection) {
+	let videoElementToSet = infoSelection.dataset.wallpaper
+	videoElement.src = `./wallpapers/${videoElementToSet}`;
+	localStorage.setItem('currentWallpaper', videoElementToSet);
+
+	hideWallpaperSelection()
+}
+
+wallpaperNext.addEventListener('click', () => displayWallpaperSelection());
+WallpaperLast.addEventListener('click', () => displayWallpaperSelection());
+
+
 
 function playPause() {
 	if (videoElement.paused) {
@@ -126,7 +134,11 @@ function hideWallpaperSelection() {
 }
 
 
-/* DEBUG INFO */
+/*
+-----------------------------
+DEBUG INFO
+-----------------------------
+*/
 
 reloj.addEventListener('click', () => {
 	playPause();
@@ -159,7 +171,11 @@ switchDebugInfo();
 
 
 
-/* FILE DOWNLOAD FUNCTIONALITY */
+/*
+-----------------------------
+FILE DOWNLOAD FUNCTIONALITY
+-----------------------------
+*/
 
 /* CTRL ALT SHIFT PageUp keys pressed */
 document.addEventListener('keydown', (e) => {
