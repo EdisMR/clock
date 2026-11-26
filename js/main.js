@@ -98,7 +98,7 @@ const videoElement = document.getElementById('myVideo');
 const wallpaperSelection = document.getElementById('wallpaper-selection');
 let currentWallpaper = localStorage.getItem('currentWallpaper')
 
-videoElement.src = `./wallpapers/${currentWallpaper}`;
+videoElement.children[0].src = `./wallpapers/${currentWallpaper}`;
 
 wallpapers.forEach((wallpaper, index) => {
 	const option = document.createElement('img');
@@ -114,7 +114,7 @@ wallpapers.forEach((wallpaper, index) => {
 
 function changeWallpaper(infoSelection) {
 	let videoElementToSet = infoSelection.dataset.wallpaper
-	videoElement.src = `./wallpapers/${videoElementToSet}`;
+	videoElement.children[0].src = `./wallpapers/${videoElementToSet}`;
 	localStorage.setItem('currentWallpaper', videoElementToSet);
 	hideWallpaperSelection()
 }
