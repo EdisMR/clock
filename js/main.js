@@ -123,6 +123,8 @@ function changeWallpaper(infoSelection) {
 	let videoElementToSet = infoSelection.dataset.wallpaper
 	videoElement.children[0].src = `./wallpapers/${videoElementToSet}`;
 	localStorage.setItem('currentWallpaper', videoElementToSet);
+	videoElement.load();
+	videoElement.play().catch(() => { });
 	hideWallpaperSelection()
 }
 
