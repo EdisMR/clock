@@ -83,6 +83,13 @@ elementoFecha.addEventListener('click', () => {
 	}
 });
 
+reloj.addEventListener('click', () => {
+	playPause();
+});
+reloj.addEventListener('contextmenu', () => {
+	switchDebugInfo();
+});
+
 
 
 /*
@@ -150,13 +157,6 @@ DEBUG INFO
 -----------------------------
 */
 
-reloj.addEventListener('click', () => {
-	playPause();
-});
-reloj.addEventListener('contextmenu', () => {
-	switchDebugInfo();
-});
-
 function switchDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	if (debugInfo.style.display === 'none') {
@@ -169,7 +169,7 @@ function switchDebugInfo() {
 function displayDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	const wScreen = window.screen;
-	debugInfo.innerHTML = `Version:202610051<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
+	debugInfo.innerHTML = `Version:202611261<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
 }
 
 window.addEventListener('resize', () => {
