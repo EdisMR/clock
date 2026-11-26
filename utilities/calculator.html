@@ -1,782 +1,1199 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Material Design 3 - Dark Mode</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora Material Design 3</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Roboto & Roboto Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Material Symbols Outlined -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                        mono: ['Roboto Mono', 'monospace'],
-                    },
-                    colors: {
-                        md: {
-                            bg: '#121212',
-                            surface: '#1E1E1E',
-                            surfaceVariant: '#28282D',
-                            surfaceElevated: '#2C2C32',
-                            primary: '#D0BCFF',
-                            onPrimary: '#381E72',
-                            secondaryContainer: '#4A4458',
-                            onSecondaryContainer: '#E8DEF8',
-                            tertiaryContainer: '#633B48',
-                            onTertiaryContainer: '#FFD8E4',
-                            textPrimary: '#E6E1E5',
-                            textSecondary: '#CAC4D0',
-                            outline: '#938F99'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet" />
 
     <style>
-        /* Estilos base y variables Material Design 3 Dark */
-        body {
-            background-color: #121212;
-            color: #E6E1E5;
-            font-family: 'Roboto', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+        /* ==========================================================================
+       SISTEMA DE DISEÑO MATERIAL DESIGN 3 (VARIABLES CSS - MODO CLARO Y OSCURO)
+       ========================================================================== */
+        :root {
+            --md-sys-color-background: #f6f8fc;
+            --md-sys-color-on-background: #191c20;
+            --md-sys-color-surface: #ffffff;
+            --md-sys-color-surface-container-low: #f0f4f9;
+            --md-sys-color-surface-container: #e9eef6;
+            --md-sys-color-surface-container-high: #dfe5ef;
+            --md-sys-color-on-surface: #191c20;
+            --md-sys-color-on-surface-variant: #43474e;
+            --md-sys-color-outline: #73777f;
+            --md-sys-color-outline-variant: #c3c7cf;
+
+            /* Colores Primarios y Contenedores */
+            --md-sys-color-primary: #0b57d0;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #d3e3fd;
+            --md-sys-color-on-primary-container: #041e49;
+
+            /* Contenedores Secundarios (Operadores) */
+            --md-sys-color-secondary-container: #c2e7ff;
+            --md-sys-color-on-secondary-container: #001d35;
+
+            /* Contenedores Terciarios (AC / Borrar) */
+            --md-sys-color-tertiary-container: #ffdad6;
+            --md-sys-color-on-tertiary-container: #410002;
+
+            /* Contenedores Numéricos */
+            --md-sys-color-num-btn: #f0f4f9;
+            --md-sys-color-num-btn-hover: #e2e8f0;
+
+            /* Elevación y Ripple */
+            --md-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+            --md-elevation-3: 0 10px 28px rgba(0, 0, 0, 0.09), 0 2px 6px rgba(0, 0, 0, 0.06);
+            --md-ripple-color: rgba(11, 87, 208, 0.16);
         }
 
-        /* Efecto Ripple (Onda de Material Design) */
+        html.dark {
+            --md-sys-color-background: #0f1318;
+            --md-sys-color-on-background: #e1e2e8;
+            --md-sys-color-surface: #171c22;
+            --md-sys-color-surface-container-low: #1d2229;
+            --md-sys-color-surface-container: #242a32;
+            --md-sys-color-surface-container-high: #2e353f;
+            --md-sys-color-on-surface: #e1e2e8;
+            --md-sys-color-on-surface-variant: #c3c7cf;
+            --md-sys-color-outline: #8d9199;
+            --md-sys-color-outline-variant: #43474e;
+
+            /* Colores Primarios y Contenedores Oscuros */
+            --md-sys-color-primary: #a8c7fa;
+            --md-sys-color-on-primary: #062e6f;
+            --md-sys-color-primary-container: #0842a0;
+            --md-sys-color-on-primary-container: #d3e3fd;
+
+            /* Contenedores Secundarios (Operadores) */
+            --md-sys-color-secondary-container: #004a77;
+            --md-sys-color-on-secondary-container: #c2e7ff;
+
+            /* Contenedores Terciarios (AC / Borrar) */
+            --md-sys-color-tertiary-container: #93000a;
+            --md-sys-color-on-tertiary-container: #ffdad6;
+
+            /* Contenedores Numéricos */
+            --md-sys-color-num-btn: #21262e;
+            --md-sys-color-num-btn-hover: #2b323d;
+
+            /* Elevación y Ripple */
+            --md-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.4);
+            --md-elevation-3: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+            --md-ripple-color: rgba(168, 199, 250, 0.2);
+        }
+
+        /* ==========================================================================
+       ESTILOS BASE Y UTILIDADES PERSONALIZADAS
+       ========================================================================== */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
+            transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1), color 0.3s cubic-bezier(0.2, 0, 0, 1);
+            min-height: 100dvh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .font-mono-calc {
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .md-card {
+            background-color: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            box-shadow: var(--md-elevation-3);
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .md-display-box {
+            background-color: var(--md-sys-color-surface-container-low);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Botones Material Design 3 */
         .md-btn {
             position: relative;
             overflow: hidden;
-            transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1), transform 0.1s ease;
+            user-select: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            border: none;
+            outline: none;
+            transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1),
+                background-color 0.2s ease,
+                border-radius 0.15s ease,
+                box-shadow 0.2s ease;
         }
 
-        .md-btn:active {
-            transform: scale(0.96);
+        .md-btn:active,
+        .md-btn.is-pressed {
+            transform: scale(0.95);
+            border-radius: 1.25rem !important;
         }
 
-        span.ripple {
+        .md-btn-num {
+            background-color: var(--md-sys-color-num-btn);
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .md-btn-num:hover {
+            background-color: var(--md-sys-color-num-btn-hover);
+        }
+
+        .md-btn-op {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .md-btn-op:hover {
+            filter: brightness(0.95);
+        }
+
+        html.dark .md-btn-op:hover {
+            filter: brightness(1.12);
+        }
+
+        .md-btn-ac {
+            background-color: var(--md-sys-color-tertiary-container);
+            color: var(--md-sys-color-on-tertiary-container);
+        }
+
+        .md-btn-ac:hover {
+            filter: brightness(0.95);
+        }
+
+        html.dark .md-btn-ac:hover {
+            filter: brightness(1.12);
+        }
+
+        .md-btn-eq {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            box-shadow: var(--md-elevation-2);
+        }
+
+        .md-btn-eq:hover {
+            filter: brightness(1.06);
+        }
+
+        /* Efecto Ripple (Onda Material Design) */
+        span.md-ripple {
             position: absolute;
             border-radius: 50%;
             transform: scale(0);
-            animation: ripple-animation 550ms linear;
-            background-color: rgba(255, 255, 255, 0.22);
+            animation: md-ripple-anim 550ms cubic-bezier(0.2, 0, 0, 1);
+            background-color: var(--md-ripple-color);
             pointer-events: none;
         }
 
-        .md-btn-primary span.ripple {
-            background-color: rgba(56, 30, 114, 0.25);
+        .md-btn-eq span.md-ripple {
+            background-color: rgba(255, 255, 255, 0.32);
         }
 
-        @keyframes ripple-animation {
+        @keyframes md-ripple-anim {
             to {
-                transform: scale(4);
+                transform: scale(3.5);
                 opacity: 0;
             }
         }
 
-        /* Personalización de la barra de desplazamiento (Scrollbar) */
-        ::-webkit-scrollbar {
+        /* Scrollbar sutil y moderno */
+        .custom-scroll::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
-        ::-webkit-scrollbar-track {
+
+        .custom-scroll::-webkit-scrollbar-track {
             background: transparent;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #49454F;
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background-color: var(--md-sys-color-outline-variant);
             border-radius: 9999px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6750A4;
+
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background-color: var(--md-sys-color-outline);
         }
 
-        /* Animación suave para el panel de historial en móvil */
-        .history-drawer {
-            transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s ease;
+        /* Ítems del historial */
+        .history-item {
+            background-color: var(--md-sys-color-surface-container-low);
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background-color: var(--md-sys-color-surface-container);
+            border-color: var(--md-sys-color-outline-variant);
+            transform: translateY(-1px);
+        }
+
+        /* Toast de notificación (sin usar alert) */
+        #toast-msg {
+            background-color: var(--md-sys-color-on-surface);
+            color: var(--md-sys-color-surface);
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-2 sm:p-6 bg-md-bg">
+
+<body class="antialiased selection:bg-blue-500/20">
+
+    <!-- Barra Superior Minimalista Material Design 3 -->
+    <header class="w-full max-w-5xl mx-auto px-4 pt-4 pb-2 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm"
+                style="background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container);">
+                <!-- Ícono Calculadora Material SVG -->
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM6.25 7.72h5v1.5h-5v-1.5zM13 15.75h5v1.5h-5v-1.5zm0-2.5h5v1.5h-5v-1.5zM8 18h1.5v-2h2v-1.5h-2v-2H8v2H6V16h2v2zm6.09-7.05l1.41-1.41 1.41 1.41 1.06-1.06-1.41-1.42 1.41-1.41-1.06-1.06-1.41 1.41-1.41-1.41-1.06 1.06 1.41 1.41-1.41 1.42 1.06 1.06z" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-lg sm:text-xl font-bold tracking-tight leading-tight">Calculadora</h1>
+                <p class="text-xs opacity-70 hidden sm:block">Material Design 3 • Evaluación segura</p>
+            </div>
+        </div>
+
+        <!-- Controles Superiores: Historial Móvil + Interruptor Modo Oscuro -->
+        <div class="flex items-center gap-2 sm:gap-3">
+            <!-- Botón Historial (Visible solo en pantallas < lg) -->
+            <button id="mobile-history-btn" type="button" aria-label="Abrir historial de cálculos"
+                class="md-btn lg:hidden px-3.5 py-2 rounded-full text-sm font-medium gap-2 border"
+                style="background-color: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface); border-color: var(--md-sys-color-outline-variant);">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Historial</span>
+                <span id="history-badge" class="px-1.5 py-0.5 text-xs rounded-full font-semibold"
+                    style="background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container);">0</span>
+            </button>
+
+            <!-- Interruptor Modo Claro / Oscuro (Material Switch Pill) -->
+            <button id="theme-toggle-btn" type="button" role="switch" aria-checked="false"
+                aria-label="Alternar modo oscuro"
+                class="md-btn px-3.5 py-2 rounded-full text-sm font-medium gap-2 border"
+                style="background-color: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface); border-color: var(--md-sys-color-outline-variant);">
+                <!-- Ícono Sol -->
+                <svg id="icon-sun" class="w-5 h-5 text-amber-500 hidden" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" />
+                </svg>
+                <!-- Ícono Luna -->
+                <svg id="icon-moon" class="w-5 h-5" style="color: var(--md-sys-color-primary);" viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <path
+                        d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
+                </svg>
+                <span id="theme-label" class="hidden sm:inline">Modo oscuro</span>
+            </button>
+        </div>
+    </header>
 
     <!-- Contenedor Principal Responsivo -->
-    <main class="w-full max-w-4xl bg-md-surface rounded-[28px] shadow-2xl border border-white/5 overflow-hidden flex flex-col md:flex-row relative min-h-[600px] max-h-[92vh]">
-        
-        <!-- Sección Izquierda / Principal: Calculadora -->
-        <section class="flex-1 flex flex-col justify-between p-4 sm:p-6 z-10 bg-md-surface">
-            
-            <!-- Barra Superior (Header) -->
-            <header class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-2 text-md-textSecondary">
-                    <span class="material-symbols-outlined text-md-primary text-xl">calculate</span>
-                    <span class="text-sm font-medium tracking-wide">Calculadora</span>
-                </div>
-                
-                <!-- Botón para abrir/cerrar historial en móviles -->
-                <button id="toggleHistoryBtn" 
-                        aria-label="Ver historial"
-                        class="md:hidden md-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-md-surfaceVariant text-md-textSecondary hover:text-md-textPrimary text-xs font-medium">
-                    <span class="material-symbols-outlined text-lg">history</span>
-                    <span>Historial</span>
-                </button>
-            </header>
+    <main
+        class="flex-1 w-full max-w-5xl mx-auto px-4 py-3 sm:py-6 flex flex-col lg:flex-row items-stretch justify-center gap-6">
 
-            <!-- Pantalla Dual (Display) -->
-            <div class="bg-md-surfaceVariant/70 rounded-[24px] p-5 sm:p-6 mb-4 flex flex-col justify-end items-end min-h-[145px] sm:min-h-[165px] border border-white/5 relative overflow-hidden">
-                <!-- Indicador de estado / error sutil -->
-                <div id="statusBadge" class="absolute top-3 left-4 text-[11px] uppercase tracking-wider text-md-primary/80 font-medium opacity-0 transition-opacity duration-200">
-                    Copiado
-                </div>
+        <!-- TARJETA PRINCIPAL DE LA CALCULADORA -->
+        <section aria-label="Calculadora"
+            class="w-full lg:w-[440px] xl:w-[460px] flex-shrink-0 md-card rounded-[28px] p-4 sm:p-6 flex flex-col justify-between">
 
-                <!-- Línea 1: Expresión completa que se está calculando -->
-                <div class="w-full overflow-x-auto text-right mb-2 pb-1" id="expressionContainer">
-                    <div id="expressionDisplay" class="text-md-textSecondary text-lg sm:text-xl font-normal tracking-wide whitespace-nowrap min-h-[28px]">
-                        <!-- Expresión dinámica -->
+            <!-- Pantalla Dual (Expresión completa arriba + Resultado principal abajo) -->
+            <div
+                class="md-display-box rounded-[22px] p-4 sm:p-5 mb-4 sm:mb-5 flex flex-col justify-between min-h-[136px] sm:min-h-[156px] relative">
+                <!-- Fila superior: Etiqueta de estado + Línea de expresión completa -->
+                <div class="flex flex-col gap-1">
+                    <div class="flex items-center justify-between text-xs opacity-60">
+                        <span id="status-indicator" class="font-medium tracking-wide uppercase">Expresión</span>
+                        <button id="copy-result-btn" type="button" title="Copiar resultado"
+                            class="hover:opacity-100 transition-opacity flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px]"
+                            style="background-color: var(--md-sys-color-surface-container);">
+                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                            </svg>
+                            <span>Copiar</span>
+                        </button>
                     </div>
+
+                    <!-- Línea 1: Cálculo completo que se está realizando -->
+                    <div id="expression-display"
+                        class="font-mono-calc text-right text-base sm:text-lg md:text-xl overflow-x-auto whitespace-nowrap custom-scroll py-1 min-h-[2rem]"
+                        style="color: var(--md-sys-color-on-surface-variant);" aria-live="polite">0</div>
                 </div>
 
-                <!-- Línea 2: Resultado total o número actual -->
-                <div class="w-full overflow-x-auto text-right flex items-center justify-end gap-2">
-                    <div id="resultDisplay" 
-                         title="Haz clic para copiar el resultado"
-                         class="cursor-pointer text-4xl sm:text-5xl font-normal text-md-textPrimary tracking-tight whitespace-nowrap transition-all duration-150">
-                        0
-                    </div>
+                <!-- Línea 2: Resultado total o vista previa en tiempo real -->
+                <div class="mt-2 pt-2 border-t flex items-baseline justify-between gap-2"
+                    style="border-color: var(--md-sys-color-outline-variant);">
+                    <span class="text-sm font-medium opacity-50 select-none">=</span>
+                    <div id="result-display"
+                        class="font-mono-calc text-right text-3xl sm:text-4xl md:text-[2.65rem] font-semibold tracking-tight overflow-x-auto whitespace-nowrap custom-scroll leading-tight w-full"
+                        style="color: var(--md-sys-color-on-surface);" aria-live="assertive">0</div>
                 </div>
             </div>
 
-            <!-- Teclado Numérico y Operadores (Grid 4x5) -->
-            <div class="grid grid-cols-4 gap-2.5 sm:gap-3 flex-1">
-                
-                <!-- Fila 1: AC, Retroceso, Porcentaje (o Limpiar entrada), Dividir -->
-                <button data-action="clear" class="md-btn col-span-2 rounded-full bg-md-tertiaryContainer text-md-onTertiaryContainer hover:brightness-110 text-lg sm:text-xl font-medium flex items-center justify-center py-3.5 sm:py-4 shadow-sm">
+            <!-- Teclado Matricial Material Design 3 -->
+            <div class="grid grid-cols-4 gap-2.5 sm:gap-3 flex-1" role="group"
+                aria-label="Teclado numérico y operadores">
+
+                <!-- Fila 1: AC (ocupa 2 columnas), Borrar último (DEL), Dividir (÷) -->
+                <button type="button" data-action="clear-all" data-key="Escape"
+                    class="md-btn md-btn-ac col-span-2 h-14 sm:h-16 rounded-full text-lg sm:text-xl font-semibold tracking-wide"
+                    aria-label="Borrar todo (AC)">
                     AC
                 </button>
-                <button data-action="backspace" aria-label="Borrar último dígito" class="md-btn rounded-full bg-md-secondaryContainer text-md-onSecondaryContainer hover:brightness-110 flex items-center justify-center py-3.5 sm:py-4 shadow-sm">
-                    <span class="material-symbols-outlined text-2xl">backspace</span>
+
+                <button type="button" data-action="delete" data-key="Backspace"
+                    class="md-btn md-btn-op h-14 sm:h-16 rounded-full text-lg sm:text-xl"
+                    aria-label="Eliminar último dígito">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z" />
+                        <line x1="18" y1="9" x2="12" y2="15" />
+                        <line x1="12" y1="9" x2="18" y2="15" />
+                    </svg>
                 </button>
-                <button data-operator="÷" class="md-btn rounded-full bg-md-secondaryContainer text-md-primary hover:brightness-110 text-2xl font-medium flex items-center justify-center py-3.5 sm:py-4 shadow-sm">
+
+                <button type="button" data-operator="÷" data-key="/"
+                    class="md-btn md-btn-op h-14 sm:h-16 rounded-full text-2xl sm:text-3xl font-normal"
+                    aria-label="Dividir">
                     ÷
                 </button>
 
-                <!-- Fila 2: 7, 8, 9, Multiplicar -->
-                <button data-number="7" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    7
-                </button>
-                <button data-number="8" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    8
-                </button>
-                <button data-number="9" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    9
-                </button>
-                <button data-operator="×" class="md-btn rounded-full bg-md-secondaryContainer text-md-primary hover:brightness-110 text-2xl font-medium flex items-center justify-center py-3.5 sm:py-4 shadow-sm">
-                    ×
-                </button>
+                <!-- Fila 2: 7, 8, 9, Multiplicar (×) -->
+                <button type="button" data-digit="7" data-key="7"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">7</button>
+                <button type="button" data-digit="8" data-key="8"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">8</button>
+                <button type="button" data-digit="9" data-key="9"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">9</button>
+                <button type="button" data-operator="×" data-key="*"
+                    class="md-btn md-btn-op h-14 sm:h-16 rounded-full text-2xl sm:text-3xl font-normal"
+                    aria-label="Multiplicar">×</button>
 
-                <!-- Fila 3: 4, 5, 6, Restar -->
-                <button data-number="4" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    4
-                </button>
-                <button data-number="5" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    5
-                </button>
-                <button data-number="6" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    6
-                </button>
-                <button data-operator="−" class="md-btn rounded-full bg-md-secondaryContainer text-md-primary hover:brightness-110 text-2xl font-medium flex items-center justify-center py-3.5 sm:py-4 shadow-sm">
-                    −
-                </button>
+                <!-- Fila 3: 4, 5, 6, Restar (-) -->
+                <button type="button" data-digit="4" data-key="4"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">4</button>
+                <button type="button" data-digit="5" data-key="5"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">5</button>
+                <button type="button" data-digit="6" data-key="6"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">6</button>
+                <button type="button" data-operator="-" data-key="-"
+                    class="md-btn md-btn-op h-14 sm:h-16 rounded-full text-2xl sm:text-3xl font-normal"
+                    aria-label="Restar">−</button>
 
-                <!-- Fila 4: 1, 2, 3, Sumar -->
-                <button data-number="1" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    1
-                </button>
-                <button data-number="2" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    2
-                </button>
-                <button data-number="3" class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    3
-                </button>
-                <button data-operator="+" class="md-btn rounded-full bg-md-secondaryContainer text-md-primary hover:brightness-110 text-2xl font-medium flex items-center justify-center py-3.5 sm:py-4 shadow-sm">
-                    +
-                </button>
+                <!-- Fila 4: 1, 2, 3, Sumar (+) -->
+                <button type="button" data-digit="1" data-key="1"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">1</button>
+                <button type="button" data-digit="2" data-key="2"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">2</button>
+                <button type="button" data-digit="3" data-key="3"
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-xl sm:text-2xl">3</button>
+                <button type="button" data-operator="+" data-key="+"
+                    class="md-btn md-btn-op h-14 sm:h-16 rounded-full text-2xl sm:text-3xl font-normal"
+                    aria-label="Sumar">+</button>
 
-                <!-- Fila 5: 0 (ancho doble), Punto decimal, Igual -->
-                <button data-number="0" class="md-btn col-span-2 rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-normal flex items-center justify-center py-3.5 sm:py-4">
-                    0
-                </button>
-                <button data-decimal="." class="md-btn rounded-full bg-md-surfaceElevated text-md-textPrimary hover:bg-white/10 text-2xl font-bold flex items-center justify-center py-3.5 sm:py-4">
-                    .
-                </button>
-                <button data-action="equals" class="md-btn md-btn-primary rounded-full bg-md-primary text-md-onPrimary hover:brightness-105 text-2xl font-medium flex items-center justify-center py-3.5 sm:py-4 shadow-md">
-                    =
-                </button>
-
+                <!-- Fila 5: 0 (ocupa 2 columnas), Punto decimal (.), Igual (=) -->
+                <button type="button" data-digit="0" data-key="0"
+                    class="md-btn md-btn-num col-span-2 h-14 sm:h-16 rounded-full text-xl sm:text-2xl">0</button>
+                <button type="button" data-decimal="." data-key="."
+                    class="md-btn md-btn-num h-14 sm:h-16 rounded-full text-2xl sm:text-3xl font-bold"
+                    aria-label="Punto decimal">.</button>
+                <button type="button" data-action="equals" data-key="Enter"
+                    class="md-btn md-btn-eq h-14 sm:h-16 rounded-full text-2xl sm:text-3xl font-semibold"
+                    aria-label="Calcular igual">=</button>
             </div>
         </section>
 
-        <!-- Sección Derecha / Cajón Desplegable: Historial de Cálculos -->
-        <aside id="historyPanel" 
-               class="history-drawer fixed md:static inset-0 z-30 md:z-auto w-full md:w-80 lg:w-96 bg-md-surfaceVariant md:border-l border-white/5 flex flex-col justify-between p-5 transform translate-y-full md:translate-y-0 opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto">
-            
-            <!-- Cabecera del Historial -->
-            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <!-- PANEL LATERAL / DRAWER MÓVIL DE HISTORIAL DE CÁLCULOS -->
+        <!-- Backdrop para móviles -->
+        <div id="history-backdrop"
+            class="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-40 hidden lg:hidden transition-opacity opacity-0">
+        </div>
+
+        <aside id="history-panel" aria-label="Historial de cálculos" class="fixed inset-x-0 bottom-0 z-50 h-[72dvh] rounded-t-[28px] translate-y-full transition-transform duration-300 ease-out
+                  lg:static lg:translate-y-0 lg:h-auto lg:flex-1 lg:max-w-md lg:rounded-[28px]
+                  md-card p-5 sm:p-6 flex flex-col">
+
+            <!-- Indicador de arrastre en móvil -->
+            <div class="w-12 h-1.5 rounded-full mx-auto mb-4 lg:hidden opacity-40"
+                style="background-color: var(--md-sys-color-outline);"></div>
+
+            <!-- Encabezado del Historial -->
+            <div class="flex items-center justify-between pb-3 mb-3 border-b"
+                style="border-color: var(--md-sys-color-outline-variant);">
                 <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-md-primary">history</span>
-                    <h2 class="text-base font-medium text-md-textPrimary">Historial</h2>
+                    <svg class="w-5 h-5" style="color: var(--md-sys-color-primary);" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="text-base sm:text-lg font-semibold">Historial de cálculos</h2>
                 </div>
-                
-                <div class="flex items-center gap-1">
-                    <!-- Botón limpiar historial -->
-                    <button id="clearHistoryBtn" 
-                            title="Borrar todo el historial"
-                            class="md-btn p-2 rounded-full text-md-textSecondary hover:text-red-300 hover:bg-white/5 transition-colors hidden">
-                        <span class="material-symbols-outlined text-xl">delete_sweep</span>
+
+                <div class="flex items-center gap-1.5">
+                    <button id="clear-history-btn" type="button" title="Limpiar todo el historial"
+                        class="md-btn px-3 py-1.5 rounded-full text-xs font-medium gap-1.5"
+                        style="background-color: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-on-tertiary-container);">
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        <span>Limpiar</span>
                     </button>
-                    <!-- Botón cerrar en móviles -->
-                    <button id="closeHistoryBtn" 
-                            aria-label="Cerrar historial"
-                            class="md:hidden md-btn p-2 rounded-full text-md-textSecondary hover:text-md-textPrimary hover:bg-white/5">
-                        <span class="material-symbols-outlined text-xl">close</span>
+
+                    <!-- Botón cerrar drawer en móviles -->
+                    <button id="close-history-btn" type="button" aria-label="Cerrar historial"
+                        class="md-btn lg:hidden p-2 rounded-full"
+                        style="background-color: var(--md-sys-color-surface-container);">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                     </button>
                 </div>
             </div>
 
-            <!-- Lista de Cálculos -->
-            <div id="historyList" class="flex-1 overflow-y-auto my-3 space-y-2.5 pr-1">
-                <!-- Estado vacío por defecto -->
-                <div id="emptyHistoryState" class="h-full flex flex-col items-center justify-center text-center text-md-textSecondary/60 px-4">
-                    <span class="material-symbols-outlined text-4xl mb-2 opacity-50">receipt_long</span>
-                    <p class="text-sm">Aún no hay cálculos</p>
-                    <p class="text-xs mt-1">Tus operaciones completadas aparecerán aquí para reutilizarlas.</p>
+            <!-- Lista scrolleable de operaciones -->
+            <div id="history-list" class="flex-1 overflow-y-auto custom-scroll space-y-2.5 pr-1">
+                <!-- Estado vacío inicial -->
+                <div id="history-empty"
+                    class="h-full min-h-[200px] flex flex-col items-center justify-center text-center p-6 opacity-60">
+                    <svg class="w-12 h-12 mb-3 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <p class="text-sm font-medium">Aún no hay cálculos guardados</p>
+                    <p class="text-xs mt-1">Realiza una operación y presiona <strong class="font-semibold">=</strong>
+                        para verla aquí.</p>
                 </div>
             </div>
 
-            <!-- Pie informativo del historial -->
-            <div class="pt-2 border-t border-white/5 text-[11px] text-md-textSecondary/70 flex items-center justify-between">
-                <span>Clic en un ítem para reutilizar</span>
-                <span class="font-mono text-md-primary/80">MD3 Dark</span>
+            <!-- Pie informativo de atajos de teclado -->
+            <div class="mt-3 pt-3 border-t text-[11px] opacity-65 flex flex-wrap items-center justify-between gap-2"
+                style="border-color: var(--md-sys-color-outline-variant);">
+                <span>Haz clic en un cálculo para reutilizarlo</span>
+                <span class="hidden sm:inline font-mono-calc">Teclado: 0-9, + - * /, Enter, Esc</span>
             </div>
         </aside>
-
     </main>
 
-    <!-- Lógica de la Calculadora -->
+    <!-- Toast flotante para mensajes breves (Copiado / Error) -->
+    <div id="toast-msg" role="status" aria-live="polite"
+        class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full text-sm font-medium shadow-lg pointer-events-none opacity-0 translate-y-3">
+        Resultado copiado
+    </div>
+
+    <!-- ==========================================================================
+       LÓGICA JAVASCRIPT (EVALUADOR SEGURO, ESTADO, HISTORIAL, TEMA Y RIPPLE)
+       ========================================================================== -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Referencias del DOM ---
-            const expressionDisplay = document.getElementById('expressionDisplay');
-            const expressionContainer = document.getElementById('expressionContainer');
-            const resultDisplay = document.getElementById('resultDisplay');
-            const statusBadge = document.getElementById('statusBadge');
-            
-            // Historial DOM
-            const historyPanel = document.getElementById('historyPanel');
-            const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
-            const closeHistoryBtn = document.getElementById('closeHistoryBtn');
-            const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-            const historyList = document.getElementById('historyList');
-            const emptyHistoryState = document.getElementById('emptyHistoryState');
+        (() => {
+            'use strict';
 
-            // --- Estado de la Aplicación ---
-            // Tokens almacena la frase completa: ej. ['125', '+', '45', '×']
-            let tokens = [];
-            // Número que se está escribiendo actualmente
-            let currentInput = '0';
-            // Bandera para saber si se acaba de presionar '='
-            let justEvaluated = false;
-            // Bandera de error (ej. División por cero)
-            let hasError = false;
-            // Lista de historial cargada de localStorage si existe
-            let history = JSON.parse(localStorage.getItem('md3_calc_history')) || [];
+            /* ------------------------------------------------------------------------
+               1. ESTADO DE LA APLICACIÓN
+               ------------------------------------------------------------------------ */
+            const state = {
+                tokens: [],            // Ejemplo: ['125', '+', '45', '×', '2']
+                currentInput: '0',     // Número actual que se está escribiendo
+                justEvaluated: false,  // Indica si se acaba de presionar '='
+                lastError: false,      // Indica si la última operación resultó en error (ej. div por 0)
+                history: []            // Lista de { id, expression, result, rawResult }
+            };
 
-            // --- Inicialización ---
-            updateDisplay();
-            renderHistory();
+            const STORAGE_KEYS = {
+                THEME: 'md3_calc_theme',
+                HISTORY: 'md3_calc_history'
+            };
 
-            // --- Efecto Ripple Material Design ---
-            document.querySelectorAll('.md-btn').forEach(button => {
-                button.addEventListener('click', function (e) {
-                    const circle = document.createElement('span');
-                    const diameter = Math.max(this.clientWidth, this.clientHeight);
-                    const radius = diameter / 2;
-                    const rect = this.getBoundingClientRect();
+            const OPERATORS = ['+', '-', '×', '÷'];
 
-                    // Si se disparó por teclado, centrar la onda
-                    const clientX = e.clientX || (rect.left + radius);
-                    const clientY = e.clientY || (rect.top + radius);
+            /* ------------------------------------------------------------------------
+               2. REFERENCIAS AL DOM
+               ------------------------------------------------------------------------ */
+            const elExpression = document.getElementById('expression-display');
+            const elResult = document.getElementById('result-display');
+            const elStatus = document.getElementById('status-indicator');
+            const elHistoryList = document.getElementById('history-list');
+            const elHistoryEmpty = document.getElementById('history-empty');
+            const elHistoryBadge = document.getElementById('history-badge');
+            const elThemeBtn = document.getElementById('theme-toggle-btn');
+            const elThemeLabel = document.getElementById('theme-label');
+            const elIconSun = document.getElementById('icon-sun');
+            const elIconMoon = document.getElementById('icon-moon');
+            const elToast = document.getElementById('toast-msg');
 
-                    circle.style.width = circle.style.height = `${diameter}px`;
-                    circle.style.left = `${clientX - rect.left - radius}px`;
-                    circle.style.top = `${clientY - rect.top - radius}px`;
-                    circle.classList.add('ripple');
+            // Elementos del drawer móvil
+            const elHistoryPanel = document.getElementById('history-panel');
+            const elHistoryBackdrop = document.getElementById('history-backdrop');
+            const elMobileHistoryBtn = document.getElementById('mobile-history-btn');
+            const elCloseHistoryBtn = document.getElementById('close-history-btn');
 
-                    const existingRipple = this.querySelector('.ripple');
-                    if (existingRipple) {
-                        existingRipple.remove();
-                    }
+            /* ------------------------------------------------------------------------
+               3. GESTIÓN DE TEMA CLARO / OSCURO (CON PERSISTENCIA)
+               ------------------------------------------------------------------------ */
+            function applyTheme(isDark) {
+                const html = document.documentElement;
+                if (isDark) {
+                    html.classList.add('dark');
+                    elThemeBtn.setAttribute('aria-checked', 'true');
+                    elThemeLabel.textContent = 'Modo claro';
+                    elIconSun.classList.remove('hidden');
+                    elIconMoon.classList.add('hidden');
+                } else {
+                    html.classList.remove('dark');
+                    elThemeBtn.setAttribute('aria-checked', 'false');
+                    elThemeLabel.textContent = 'Modo oscuro';
+                    elIconSun.classList.add('hidden');
+                    elIconMoon.classList.remove('hidden');
+                }
+                try {
+                    localStorage.setItem(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light');
+                } catch (e) { /* Ignorar si localStorage está restringido */ }
+            }
 
-                    this.appendChild(circle);
-                });
+            function initTheme() {
+                let savedTheme = null;
+                try {
+                    savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+                } catch (e) { }
+
+                if (savedTheme) {
+                    applyTheme(savedTheme === 'dark');
+                } else {
+                    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    applyTheme(prefersDark);
+                }
+            }
+
+            elThemeBtn.addEventListener('click', () => {
+                const isCurrentlyDark = document.documentElement.classList.contains('dark');
+                applyTheme(!isCurrentlyDark);
             });
 
-            // --- Funciones de Formateo y Pantalla ---
-            function formatNumber(numStr) {
+            /* ------------------------------------------------------------------------
+               4. EVALUADOR MATEMÁTICO SEGURO (SIN EVAL - PRECEDENCIA DE OPERADORES)
+               ------------------------------------------------------------------------ */
+            /**
+             * Evalúa un arreglo de tokens ['12', '+', '4', '×', '3'] respetando
+             * la jerarquía estándar: primero × y ÷ (izq a der), luego + y - (izq a der).
+             */
+            function evaluateTokens(rawTokens) {
+                if (!rawTokens || rawTokens.length === 0) return 0;
+
+                // Clonar tokens y limpiar si termina en operador colgante
+                const tokens = [...rawTokens];
+                if (OPERATORS.includes(tokens[tokens.length - 1])) {
+                    tokens.pop();
+                }
+                if (tokens.length === 0) return 0;
+
+                // Convertir strings numéricos a Number
+                const parsed = tokens.map((tok, idx) => {
+                    if (idx % 2 === 0) {
+                        const num = parseFloat(tok);
+                        if (Number.isNaN(num)) throw new Error('Número inválido');
+                        return num;
+                    }
+                    return tok;
+                });
+
+                // Paso 1: Multiplicación y División
+                const pass1 = [parsed[0]];
+                for (let i = 1; i < parsed.length; i += 2) {
+                    const op = parsed[i];
+                    const nextVal = parsed[i + 1];
+
+                    if (op === '×' || op === '÷') {
+                        const prevVal = pass1.pop();
+                        if (op === '÷') {
+                            if (nextVal === 0) {
+                                throw new Error('División por cero');
+                            }
+                            pass1.push(prevVal / nextVal);
+                        } else {
+                            pass1.push(prevVal * nextVal);
+                        }
+                    } else {
+                        pass1.push(op, nextVal);
+                    }
+                }
+
+                // Paso 2: Suma y Resta
+                let total = pass1[0];
+                for (let i = 1; i < pass1.length; i += 2) {
+                    const op = pass1[i];
+                    const nextVal = pass1[i + 1];
+                    if (op === '+') {
+                        total += nextVal;
+                    } else if (op === '-') {
+                        total -= nextVal;
+                    }
+                }
+
+                if (!Number.isFinite(total)) {
+                    throw new Error('Resultado fuera de rango');
+                }
+
+                // Evitar errores clásicos de coma flotante (ej. 0.1 + 0.2 = 0.30000000000000004)
+                return Math.round((total + Number.EPSILON) * 1e12) / 1e12;
+            }
+
+            /**
+             * Formatea un número para mostrarlo de forma limpia con separadores de miles
+             * sin afectar los decimales que el usuario aún está escribiendo.
+             */
+            function formatNumberDisplay(numStr) {
                 if (numStr === 'Error' || numStr === 'No se puede dividir entre 0') return numStr;
-                if (numStr === '' || numStr === '-') return numStr;
+                if (numStr === '' || numStr === '-') return numStr || '0';
 
-                // Separar parte entera y decimal para no perder el punto mientras se escribe
-                const parts = numStr.split('.');
-                const integerPart = parts[0];
-                const decimalPart = parts[1];
+                const isNegative = numStr.startsWith('-');
+                const cleanStr = isNegative ? numStr.slice(1) : numStr;
+                const parts = cleanStr.split('.');
+                const intPart = parts[0];
+                const decPart = parts[1];
 
-                // Formatear con comas de miles solo si es un número válido
-                const formattedInt = isNaN(Number(integerPart)) 
-                    ? integerPart 
-                    : Number(integerPart).toLocaleString('en-US');
+                // Formatear parte entera con comas de miles
+                const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                const sign = isNegative ? '-' : '';
 
                 if (parts.length > 1) {
-                    return `${formattedInt}.${decimalPart}`;
+                    return `${sign}${formattedInt}.${decPart}`;
                 }
-                return formattedInt;
+                return `${sign}${formattedInt}`;
             }
 
-            function updateDisplay() {
-                // 1. Construir la línea superior (Expresión completa)
-                let fullExpression = '';
-                
-                if (justEvaluated) {
-                    // Muestra la expresión final seguida de '='
-                    fullExpression = tokens.join(' ') + ' =';
-                } else {
-                    // Muestra los tokens acumulados + el número actual en construcción
-                    const displayTokens = [...tokens];
-                    if (currentInput !== '') {
-                        displayTokens.push(currentInput);
-                    }
-                    fullExpression = displayTokens.join(' ');
-                }
-
-                expressionDisplay.textContent = fullExpression || '\u00A0';
-
-                // 2. Actualizar la línea inferior (Resultado o número actual)
-                if (hasError) {
-                    resultDisplay.textContent = currentInput;
-                    resultDisplay.classList.add('text-red-400', 'text-2xl', 'sm:text-3xl');
-                    resultDisplay.classList.remove('text-4xl', 'sm:text-5xl', 'text-md-textPrimary');
-                } else {
-                    resultDisplay.classList.remove('text-red-400', 'text-2xl', 'sm:text-3xl');
-                    resultDisplay.classList.add('text-4xl', 'sm:text-5xl', 'text-md-textPrimary');
-                    
-                    const valueToShow = currentInput !== '' ? currentInput : (tokens.length > 0 ? tokens[tokens.length - 1] : '0');
-                    resultDisplay.textContent = formatNumber(valueToShow);
-
-                    // Ajustar tamaño de fuente dinámicamente si el número es muy largo
-                    if (resultDisplay.textContent.length > 13) {
-                        resultDisplay.classList.replace('text-4xl', 'text-2xl');
-                        resultDisplay.classList.replace('sm:text-5xl', 'sm:text-3xl');
-                    }
-                }
-
-                // Auto-scroll hacia la derecha en expresiones largas
-                expressionContainer.scrollLeft = expressionContainer.scrollWidth;
-            }
-
-            // --- Lógica de Operaciones ---
-            function inputNumber(digit) {
-                if (hasError) {
+            /* ------------------------------------------------------------------------
+               5. OPERACIONES DE LA CALCULADORA (DÍGITOS, OPERADORES, BORRAR, IGUAL)
+               ------------------------------------------------------------------------ */
+            function inputDigit(digit) {
+                if (state.lastError) {
                     clearAll();
                 }
 
-                if (justEvaluated) {
-                    // Si acabamos de calcular y presionamos un número, iniciamos nueva operación
-                    tokens = [];
-                    currentInput = digit;
-                    justEvaluated = false;
+                if (state.justEvaluated) {
+                    state.tokens = [];
+                    state.currentInput = digit;
+                    state.justEvaluated = false;
+                } else if (state.currentInput === '0') {
+                    state.currentInput = digit;
+                } else if (state.currentInput === '-0') {
+                    state.currentInput = '-' + digit;
                 } else {
-                    if (currentInput === '0') {
-                        currentInput = digit;
-                    } else if (currentInput.length < 15) { // Límite razonable de dígitos
-                        currentInput += digit;
-                    }
+                    // Limitar longitud razonable por número (16 dígitos)
+                    const digitsOnly = state.currentInput.replace(/[^0-9]/g, '');
+                    if (digitsOnly.length >= 16) return;
+                    state.currentInput += digit;
                 }
+
                 updateDisplay();
             }
 
             function inputDecimal() {
-                if (hasError) {
+                if (state.lastError) {
                     clearAll();
                 }
 
-                if (justEvaluated) {
-                    tokens = [];
-                    currentInput = '0.';
-                    justEvaluated = false;
+                if (state.justEvaluated) {
+                    state.tokens = [];
+                    state.currentInput = '0.';
+                    state.justEvaluated = false;
                     updateDisplay();
                     return;
                 }
 
-                if (currentInput === '') {
-                    currentInput = '0.';
-                } else if (!currentInput.includes('.')) {
-                    // Validación estricta: solo un punto por número
-                    currentInput += '.';
+                // Si el usuario presionó operador y luego directamente '.', iniciar '0.'
+                if (state.currentInput === '') {
+                    state.currentInput = '0.';
+                    updateDisplay();
+                    return;
                 }
-                updateDisplay();
+
+                // Validación: evitar múltiples puntos decimales en el mismo número
+                if (!state.currentInput.includes('.')) {
+                    state.currentInput += '.';
+                    updateDisplay();
+                }
             }
 
             function inputOperator(op) {
-                if (hasError) {
+                if (state.lastError) {
                     clearAll();
                 }
 
-                if (justEvaluated) {
-                    // Continuar operando con el resultado anterior
-                    tokens = [currentInput, op];
-                    currentInput = '';
-                    justEvaluated = false;
+                if (state.justEvaluated) {
+                    // Continuar operando sobre el resultado obtenido
+                    state.tokens = [state.currentInput, op];
+                    state.currentInput = '';
+                    state.justEvaluated = false;
                     updateDisplay();
                     return;
                 }
 
-                if (currentInput !== '') {
-                    // Limpiar punto decimal suelto al final (ej. "5." -> "5")
-                    if (currentInput.endsWith('.')) {
-                        currentInput = currentInput.slice(0, -1);
-                    }
-                    tokens.push(currentInput);
-                    tokens.push(op);
-                    currentInput = '';
-                } else if (tokens.length > 0) {
-                    // Si el usuario cambia de operador (ej. presionó + y luego ×)
-                    const lastToken = tokens[tokens.length - 1];
-                    if (['+', '−', '×', '÷'].includes(lastToken)) {
-                        tokens[tokens.length - 1] = op;
-                    }
+                // Si currentInput está vacío, significa que el último token ya es un operador -> reemplazarlo
+                if (state.currentInput === '' && state.tokens.length > 0) {
+                    state.tokens[state.tokens.length - 1] = op;
+                } else {
+                    // Normalizar número si termina en punto (ej. "5." -> "5")
+                    const normalized = state.currentInput.endsWith('.')
+                        ? state.currentInput.slice(0, -1)
+                        : (state.currentInput || '0');
+
+                    state.tokens.push(normalized, op);
+                    state.currentInput = '';
                 }
+
                 updateDisplay();
             }
 
-            function backspace() {
-                if (hasError) {
+            function deleteLast() {
+                if (state.lastError) {
                     clearAll();
                     return;
                 }
 
-                if (justEvaluated) {
-                    // Si se presionó '=', backspace limpia la expresión superior y deja el resultado editable
-                    tokens = [];
-                    justEvaluated = false;
-                    updateDisplay();
-                    return;
+                if (state.justEvaluated) {
+                    // Si ya se evaluó, permitir editar el resultado como un número normal
+                    state.justEvaluated = false;
+                    state.tokens = [];
                 }
 
-                if (currentInput.length > 0) {
-                    currentInput = currentInput.slice(0, -1);
-                    if (currentInput === '' && tokens.length === 0) {
-                        currentInput = '0';
+                if (state.currentInput.length > 0) {
+                    state.currentInput = state.currentInput.slice(0, -1);
+                    if (state.currentInput === '-' || state.currentInput === '') {
+                        state.currentInput = state.tokens.length === 0 ? '0' : '';
                     }
-                } else if (tokens.length > 0) {
-                    // Si currentInput está vacío, eliminar el último operador y recuperar el número anterior
-                    tokens.pop(); // Quita el operador
-                    if (tokens.length > 0) {
-                        currentInput = tokens.pop(); // Recupera el número previo para seguir editándolo
-                    } else {
-                        currentInput = '0';
-                    }
+                } else if (state.tokens.length > 0) {
+                    // Eliminar el operador pendiente y recuperar el número anterior para seguir editándolo
+                    state.tokens.pop(); // Quita operador
+                    const prevNum = state.tokens.pop(); // Recupera número previo
+                    state.currentInput = prevNum || '0';
                 }
+
                 updateDisplay();
             }
 
             function clearAll() {
-                tokens = [];
-                currentInput = '0';
-                justEvaluated = false;
-                hasError = false;
+                state.tokens = [];
+                state.currentInput = '0';
+                state.justEvaluated = false;
+                state.lastError = false;
                 updateDisplay();
             }
 
-            // Evaluación matemática con precedencia de operadores (× y ÷ antes que + y −)
-            function evaluateExpression() {
-                if (hasError || justEvaluated) return;
-
-                let evalTokens = [...tokens];
-
-                if (currentInput !== '') {
-                    if (currentInput.endsWith('.')) {
-                        currentInput = currentInput.slice(0, -1);
-                    }
-                    evalTokens.push(currentInput);
-                } else if (evalTokens.length > 0) {
-                    // Si termina en un operador (ej. "5 + "), quitar el operador colgante
-                    const last = evalTokens[evalTokens.length - 1];
-                    if (['+', '−', '×', '÷'].includes(last)) {
-                        evalTokens.pop();
-                    }
-                }
-
-                // Si solo hay un número y ningún operador, no es necesario calcular
-                if (evalTokens.length < 3) {
+            function calculateEquals() {
+                if (state.lastError) {
+                    clearAll();
                     return;
                 }
 
+                // Construir expresión completa para evaluar
+                const evalTokens = [...state.tokens];
+                if (state.currentInput !== '') {
+                    const normalized = state.currentInput.endsWith('.')
+                        ? state.currentInput.slice(0, -1)
+                        : state.currentInput;
+                    evalTokens.push(normalized);
+                } else if (evalTokens.length > 0 && OPERATORS.includes(evalTokens[evalTokens.length - 1])) {
+                    evalTokens.pop();
+                }
+
+                if (evalTokens.length === 0) return;
+
+                // Cadena legible de la expresión completa (ej. "125 + 45 × 2")
+                const expressionStr = evalTokens
+                    .map((t, i) => (i % 2 === 0 ? formatNumberDisplay(t) : t))
+                    .join(' ');
+
                 try {
-                    const result = computePrecedence(evalTokens);
-                    
-                    if (!isFinite(result) || isNaN(result)) {
-                        throw new Error('No se puede dividir entre 0');
+                    const numericResult = evaluateTokens(evalTokens);
+                    const rawResultStr = String(numericResult);
+                    const formattedResult = formatNumberDisplay(rawResultStr);
+
+                    // Guardar en historial solo si hubo al menos una operación (3+ tokens)
+                    if (evalTokens.length >= 3) {
+                        addToHistory(expressionStr, formattedResult, rawResultStr);
                     }
 
-                    // Redondear errores de punto flotante de JS (ej. 0.1 + 0.2 = 0.30000000000000004)
-                    const cleanResult = String(Math.round(result * 1e10) / 1e10);
-                    const expressionString = evalTokens.join(' ');
+                    // Actualizar estado mostrando la frase completa arriba y el resultado final abajo
+                    elExpression.textContent = expressionStr;
+                    elResult.textContent = formattedResult;
+                    elStatus.textContent = 'Resultado final';
 
-                    // Guardar en el historial
-                    addToHistory(expressionString, cleanResult);
+                    state.tokens = [];
+                    state.currentInput = rawResultStr;
+                    state.justEvaluated = true;
+                    state.lastError = false;
 
-                    // Actualizar estado
-                    tokens = evalTokens;
-                    currentInput = cleanResult;
-                    justEvaluated = true;
-                    updateDisplay();
-
+                    scrollDisplaysToEnd();
                 } catch (err) {
-                    hasError = true;
-                    tokens = evalTokens;
-                    currentInput = err.message || 'Error';
-                    justEvaluated = true;
-                    updateDisplay();
+                    elExpression.textContent = expressionStr;
+                    elResult.textContent = err.message === 'División por cero'
+                        ? 'No se puede dividir entre 0'
+                        : 'Error';
+                    elStatus.textContent = 'Error matemático';
+                    state.lastError = true;
+                    state.justEvaluated = false;
                 }
             }
 
-            function computePrecedence(tokenArray) {
-                // Paso 1: Resolver Multiplicación (×) y División (÷)
-                let pass1 = [];
-                let i = 0;
-                while (i < tokenArray.length) {
-                    const token = tokenArray[i];
-                    if (token === '×' || token === '÷') {
-                        const prev = parseFloat(pass1.pop());
-                        const next = parseFloat(tokenArray[i + 1]);
-                        if (token === '÷' && next === 0) {
-                            throw new Error('No se puede dividir entre 0');
-                        }
-                        const res = token === '×' ? prev * next : prev / next;
-                        pass1.push(res);
-                        i += 2;
-                    } else {
-                        pass1.push(token);
-                        i++;
-                    }
+            /* ------------------------------------------------------------------------
+               6. ACTUALIZACIÓN DE LA PANTALLA DUAL EN TIEMPO REAL
+               ------------------------------------------------------------------------ */
+            function updateDisplay() {
+                if (state.lastError) return;
+
+                // Construir la frase completa que se está digitando
+                const displayParts = state.tokens.map((t, idx) =>
+                    idx % 2 === 0 ? formatNumberDisplay(t) : t
+                );
+
+                if (state.currentInput !== '') {
+                    displayParts.push(formatNumberDisplay(state.currentInput));
                 }
 
-                // Paso 2: Resolver Suma (+) y Resta (−)
-                let finalResult = parseFloat(pass1[0]);
-                for (let j = 1; j < pass1.length; j += 2) {
-                    const operator = pass1[j];
-                    const nextVal = parseFloat(pass1[j + 1]);
-                    if (operator === '+') {
-                        finalResult += nextVal;
-                    } else if (operator === '−') {
-                        finalResult -= nextVal;
-                    }
+                const fullExpressionText = displayParts.join(' ') || '0';
+                elExpression.textContent = fullExpressionText;
+
+                // Calcular vista previa en tiempo real si ya hay al menos una operación completa
+                const previewTokens = [...state.tokens];
+                if (state.currentInput !== '' && state.currentInput !== '-') {
+                    previewTokens.push(state.currentInput);
                 }
-                return finalResult;
+
+                if (previewTokens.length >= 3 && !OPERATORS.includes(previewTokens[previewTokens.length - 1])) {
+                    try {
+                        const liveVal = evaluateTokens(previewTokens);
+                        elResult.textContent = formatNumberDisplay(String(liveVal));
+                        elStatus.textContent = 'Vista previa';
+                    } catch (e) {
+                        elResult.textContent = e.message === 'División por cero' ? '÷ 0 indefinido' : '...';
+                        elStatus.textContent = 'Advertencia';
+                    }
+                } else {
+                    // Mostrar el número actual que se está escribiendo o el último ingresado
+                    const activeNum = state.currentInput !== ''
+                        ? state.currentInput
+                        : (state.tokens.length >= 2 ? state.tokens[state.tokens.length - 2] : '0');
+                    elResult.textContent = formatNumberDisplay(activeNum);
+                    elStatus.textContent = 'Expresión';
+                }
+
+                scrollDisplaysToEnd();
             }
 
-            // --- Gestión del Historial ---
-            function addToHistory(expression, result) {
+            function scrollDisplaysToEnd() {
+                elExpression.scrollLeft = elExpression.scrollWidth;
+                elResult.scrollLeft = elResult.scrollWidth;
+            }
+
+            /* ------------------------------------------------------------------------
+               7. GESTIÓN DEL HISTORIAL DE CÁLCULOS
+               ------------------------------------------------------------------------ */
+            function loadHistory() {
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEYS.HISTORY);
+                    if (saved) {
+                        state.history = JSON.parse(saved);
+                    }
+                } catch (e) {
+                    state.history = [];
+                }
+                renderHistory();
+            }
+
+            function saveHistory() {
+                try {
+                    localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(state.history));
+                } catch (e) { }
+            }
+
+            function addToHistory(expression, formattedResult, rawResult) {
                 const entry = {
                     id: Date.now(),
                     expression,
-                    result
+                    result: formattedResult,
+                    rawResult
                 };
-                history.unshift(entry); // Agregar al inicio
-                if (history.length > 50) history.pop(); // Máximo 50 registros
-                localStorage.setItem('md3_calc_history', JSON.stringify(history));
+                state.history.unshift(entry);
+                // Mantener un máximo de 50 cálculos recientes
+                if (state.history.length > 50) {
+                    state.history.pop();
+                }
+                saveHistory();
                 renderHistory();
             }
 
             function renderHistory() {
-                // Limpiar lista actual excepto el estado vacío
-                Array.from(historyList.children).forEach(child => {
-                    if (child.id !== 'emptyHistoryState') {
+                elHistoryBadge.textContent = state.history.length;
+
+                // Limpiar nodos previos excepto el mensaje vacío
+                Array.from(elHistoryList.children).forEach(child => {
+                    if (child.id !== 'history-empty') {
                         child.remove();
                     }
                 });
 
-                if (history.length === 0) {
-                    emptyHistoryState.classList.remove('hidden');
-                    clearHistoryBtn.classList.add('hidden');
+                if (state.history.length === 0) {
+                    elHistoryEmpty.classList.remove('hidden');
                     return;
                 }
 
-                emptyHistoryState.classList.add('hidden');
-                clearHistoryBtn.classList.remove('hidden');
+                elHistoryEmpty.classList.add('hidden');
 
-                history.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'p-3.5 rounded-2xl bg-md-surfaceElevated/80 hover:bg-white/10 border border-white/5 cursor-pointer transition-all group flex flex-col items-end';
+                state.history.forEach(item => {
+                    const card = document.createElement('button');
+                    card.type = 'button';
+                    card.className = 'history-item w-full text-right p-3.5 rounded-2xl flex flex-col gap-1 cursor-pointer';
+                    card.title = 'Haz clic para usar este resultado';
+
                     card.innerHTML = `
-                        <div class="text-xs text-md-textSecondary group-hover:text-md-textPrimary transition-colors mb-1 text-right break-all">
-                            ${item.expression} =
-                        </div>
-                        <div class="text-xl font-medium text-md-primary">
-                            ${formatNumber(item.result)}
-                        </div>
-                    `;
+            <span class="font-mono-calc text-xs sm:text-sm opacity-75 break-all">${escapeHTML(item.expression)} =</span>
+            <span class="font-mono-calc text-lg sm:text-xl font-semibold" style="color: var(--md-sys-color-primary);">${escapeHTML(item.result)}</span>
+          `;
 
-                    // Al hacer clic, reutilizar el resultado en la calculadora
                     card.addEventListener('click', () => {
-                        hasError = false;
-                        if (justEvaluated || (tokens.length === 0 && currentInput === '0')) {
-                            tokens = [];
-                            currentInput = item.result;
-                            justEvaluated = false;
-                        } else {
-                            // Si hay un operador esperando un número (ej. "50 + "), insertarlo ahí
-                            currentInput = item.result;
-                        }
-                        updateDisplay();
+                        reuseHistoryResult(item);
                         closeMobileHistory();
                     });
 
-                    historyList.appendChild(card);
+                    elHistoryList.appendChild(card);
                 });
             }
 
-            clearHistoryBtn.addEventListener('click', () => {
-                history = [];
-                localStorage.removeItem('md3_calc_history');
+            function reuseHistoryResult(item) {
+                if (state.lastError) {
+                    clearAll();
+                }
+
+                // Si el usuario estaba escribiendo tras un operador (ej. "50 + "), inserta el resultado ahí
+                if (state.tokens.length > 0 && state.currentInput === '') {
+                    state.currentInput = item.rawResult;
+                    state.justEvaluated = false;
+                } else {
+                    state.tokens = [];
+                    state.currentInput = item.rawResult;
+                    state.justEvaluated = false;
+                }
+
+                updateDisplay();
+                showToast(`Resultado cargado: ${item.result}`);
+            }
+
+            document.getElementById('clear-history-btn').addEventListener('click', () => {
+                if (state.history.length === 0) return;
+                state.history = [];
+                saveHistory();
                 renderHistory();
+                showToast('Historial borrado');
             });
 
-            // --- Drawer de Historial en Móviles ---
+            /* ------------------------------------------------------------------------
+               8. DRAWER DE HISTORIAL EN DISPOSITIVOS MÓVILES
+               ------------------------------------------------------------------------ */
             function openMobileHistory() {
-                historyPanel.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
-                historyPanel.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                elHistoryBackdrop.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    elHistoryBackdrop.classList.remove('opacity-0');
+                    elHistoryPanel.classList.remove('translate-y-full');
+                });
             }
 
             function closeMobileHistory() {
-                historyPanel.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
-                historyPanel.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                elHistoryBackdrop.classList.add('opacity-0');
+                elHistoryPanel.classList.add('translate-y-full');
+                setTimeout(() => {
+                    elHistoryBackdrop.classList.add('hidden');
+                }, 300);
             }
 
-            toggleHistoryBtn.addEventListener('click', openMobileHistory);
-            closeHistoryBtn.addEventListener('click', closeMobileHistory);
+            elMobileHistoryBtn.addEventListener('click', openMobileHistory);
+            elCloseHistoryBtn.addEventListener('click', closeMobileHistory);
+            elHistoryBackdrop.addEventListener('click', closeMobileHistory);
 
-            // --- Copiar resultado al hacer clic ---
-            resultDisplay.addEventListener('click', () => {
-                if (hasError) return;
-                const rawVal = currentInput !== '' ? currentInput : '0';
-                
-                // Fallback seguro para iframe usando textarea temporal
-                const textArea = document.createElement("textarea");
-                textArea.value = rawVal;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    statusBadge.classList.remove('opacity-0');
-                    setTimeout(() => statusBadge.classList.add('opacity-0'), 1500);
-                } catch (err) {
-                    console.error('Error al copiar:', err);
-                }
-                document.body.removeChild(textArea);
+            /* ------------------------------------------------------------------------
+               9. EFECTO RIPPLE MATERIAL DESIGN Y EVENTOS DE BOTONES
+               ------------------------------------------------------------------------ */
+            function createRipple(button, clientX, clientY) {
+                const rect = button.getBoundingClientRect();
+                const diameter = Math.max(rect.width, rect.height);
+                const radius = diameter / 2;
+
+                const circle = document.createElement('span');
+                circle.classList.add('md-ripple');
+                circle.style.width = circle.style.height = `${diameter}px`;
+
+                const x = clientX !== undefined ? clientX - rect.left - radius : rect.width / 2 - radius;
+                const y = clientY !== undefined ? clientY - rect.top - radius : rect.height / 2 - radius;
+
+                circle.style.left = `${x}px`;
+                circle.style.top = `${y}px`;
+
+                const existing = button.querySelector('.md-ripple');
+                if (existing) existing.remove();
+
+                button.appendChild(circle);
+                circle.addEventListener('animationend', () => circle.remove());
+            }
+
+            // Asignar listeners a todos los botones con clase .md-btn
+            document.querySelectorAll('.md-btn').forEach(btn => {
+                btn.addEventListener('pointerdown', (e) => {
+                    createRipple(btn, e.clientX, e.clientY);
+                });
+
+                btn.addEventListener('click', () => {
+                    const digit = btn.dataset.digit;
+                    const operator = btn.dataset.operator;
+                    const decimal = btn.dataset.decimal;
+                    const action = btn.dataset.action;
+
+                    if (digit !== undefined) {
+                        inputDigit(digit);
+                    } else if (operator !== undefined) {
+                        inputOperator(operator);
+                    } else if (decimal !== undefined) {
+                        inputDecimal();
+                    } else if (action === 'clear-all') {
+                        clearAll();
+                    } else if (action === 'delete') {
+                        deleteLast();
+                    } else if (action === 'equals') {
+                        calculateEquals();
+                    }
+                });
             });
 
-            // --- Eventos de Clic en Botones ---
-            document.querySelectorAll('[data-number]').forEach(btn => {
-                btn.addEventListener('click', () => inputNumber(btn.dataset.number));
-            });
-
-            document.querySelectorAll('[data-operator]').forEach(btn => {
-                btn.addEventListener('click', () => inputOperator(btn.dataset.operator));
-            });
-
-            document.querySelector('[data-decimal]').addEventListener('click', inputDecimal);
-            document.querySelector('[data-action="clear"]').addEventListener('click', clearAll);
-            document.querySelector('[data-action="backspace"]').addEventListener('click', backspace);
-            document.querySelector('[data-action="equals"]').addEventListener('click', evaluateExpression);
-
-            // --- Soporte de Teclado Físico ---
+            /* ------------------------------------------------------------------------
+               10. SOPORTE PARA TECLADO FÍSICO
+               ------------------------------------------------------------------------ */
             document.addEventListener('keydown', (e) => {
-                const key = e.key;
+                // Ignorar si se usan combinaciones de control (Ctrl+C, etc.)
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
 
-                // Números 0-9
+                let key = e.key;
+                if (key === ',') key = '.';
+                if (key === '=') key = 'Enter';
+
+                let targetSelector = null;
+
                 if (/^[0-9]$/.test(key)) {
                     e.preventDefault();
-                    triggerButtonVisual(`[data-number="${key}"]`);
-                    inputNumber(key);
-                }
-                // Punto decimal
-                else if (key === '.' || key === ',') {
+                    inputDigit(key);
+                    targetSelector = `[data-key="${key}"]`;
+                } else if (key === '.') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-decimal]');
                     inputDecimal();
-                }
-                // Operadores
-                else if (key === '+') {
+                    targetSelector = `[data-key="."]`;
+                } else if (key === '+') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-operator="+"]');
                     inputOperator('+');
-                }
-                else if (key === '-') {
+                    targetSelector = `[data-key="+"]`;
+                } else if (key === '-') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-operator="−"]');
-                    inputOperator('−');
-                }
-                else if (key === '*' || key.toLowerCase() === 'x') {
+                    inputOperator('-');
+                    targetSelector = `[data-key="-"]`;
+                } else if (key === '*') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-operator="×"]');
                     inputOperator('×');
-                }
-                else if (key === '/') {
+                    targetSelector = `[data-key="*"]`;
+                } else if (key === '/') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-operator="÷"]');
                     inputOperator('÷');
-                }
-                // Igual / Enter
-                else if (key === 'Enter' || key === '=') {
+                    targetSelector = `[data-key="/"]`;
+                } else if (key === 'Enter') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-action="equals"]');
-                    evaluateExpression();
-                }
-                // Retroceso
-                else if (key === 'Backspace') {
+                    calculateEquals();
+                    targetSelector = `[data-key="Enter"]`;
+                } else if (key === 'Backspace') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-action="backspace"]');
-                    backspace();
-                }
-                // Borrar todo (Escape o Delete)
-                else if (key === 'Escape' || key === 'Delete') {
+                    deleteLast();
+                    targetSelector = `[data-key="Backspace"]`;
+                } else if (key === 'Escape' || key.toLowerCase() === 'c') {
                     e.preventDefault();
-                    triggerButtonVisual('[data-action="clear"]');
                     clearAll();
+                    targetSelector = `[data-key="Escape"]`;
+                }
+
+                // Feedback visual en el botón correspondiente
+                if (targetSelector) {
+                    const btn = document.querySelector(targetSelector);
+                    if (btn) {
+                        btn.classList.add('is-pressed');
+                        createRipple(btn);
+                        setTimeout(() => btn.classList.remove('is-pressed'), 140);
+                    }
                 }
             });
 
-            // Simula el efecto visual de pulsación al usar el teclado físico
-            function triggerButtonVisual(selector) {
-                const btn = document.querySelector(selector);
-                if (btn) {
-                    btn.classList.add('brightness-125', 'scale-95');
-                    setTimeout(() => {
-                        btn.classList.remove('brightness-125', 'scale-95');
-                    }, 120);
-                }
+            /* ------------------------------------------------------------------------
+               11. UTILIDADES AUXILIARES (COPIAR AL PORTAPAPELES Y TOAST)
+               ------------------------------------------------------------------------ */
+            let toastTimer = null;
+            function showToast(message) {
+                elToast.textContent = message;
+                elToast.classList.remove('opacity-0', 'translate-y-3');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    elToast.classList.add('opacity-0', 'translate-y-3');
+                }, 2000);
             }
-        });
+
+            document.getElementById('copy-result-btn').addEventListener('click', () => {
+                const textToCopy = elResult.textContent.replace(/,/g, '');
+                const tempInput = document.createElement('textarea');
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(`Copiado: ${elResult.textContent}`);
+                } catch (err) {
+                    showToast('No se pudo copiar');
+                }
+                document.body.removeChild(tempInput);
+            });
+
+            function escapeHTML(str) {
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            /* ------------------------------------------------------------------------
+               12. INICIALIZACIÓN
+               ------------------------------------------------------------------------ */
+            initTheme();
+            loadHistory();
+            updateDisplay();
+        })();
     </script>
 </body>
+
 </html>
