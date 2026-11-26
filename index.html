@@ -7,168 +7,7 @@
     <title>Hora de Costa Rica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Cache-Control" content="max-age=86400">
-
-    <style>
-        html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Roboto, sans-serif;
-        }
-
-        body {
-            background-color: #141414;
-            margin: 0;
-            padding: 0;
-        }
-
-        .main-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            user-select: none;
-            user-drag: none;
-            width: 100vw;
-            height: 60vh;
-            text-align: center;
-        }
-
-        #date {
-            color: #ffffff;
-            padding: 0px 10px;
-            font-size: 20px;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.534);
-            margin-bottom: 20px;
-            padding: 0px 20px;
-            font-weight: lighter;
-        }
-
-        #reloj {
-            font-weight: bold;
-            color: #dddddd;
-            padding: 0px 10px;
-            font-size: 65px;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.473);
-            padding: 0px 20px;
-        }
-
-        .vidrio-esmerilado {
-            background: rgba(88, 84, 84, 0.199);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        #myVideo {
-            filter: brightness(0.73);
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        .changeWallpaper {
-            position: fixed;
-            bottom: 50px;
-            background-color: rgba(57, 209, 27, 0);
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 30vw;
-            height: 20vh;
-            transition: all 0.2s ease-in-out;
-            /* border: 2px solid rgba(255, 255, 255, 0.2); */
-        }
-
-        .changeWallpaper:hover {
-            background-color: rgba(58, 58, 58, 0.315);
-            scale: 1.05;
-        }
-
-        .changeWallpaper:active {
-            background-color: rgba(190, 190, 190, 0.76);
-            scale: 0.95;
-        }
-
-        #wallpaperNext {
-            right: 50px;
-        }
-
-        #WallpaperLast {
-            left: 50px;
-        }
-
-        #debug-info {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 20px;
-            color: greenyellow;
-            display: none;
-            text-align: left;
-        }
-
-        @media (max-width: 600px) {
-            #date {
-                font-size: 33px;
-            }
-
-            #reloj {
-                font-size: 70px;
-            }
-
-            .changeWallpaper {
-                height: 20vh;
-            }
-        }
-
-        @media (min-width: 601px) and (max-width: 1200px) {
-            #date {
-                font-size: 45px;
-            }
-
-            #reloj {
-                font-size: 100px;
-            }
-
-            .changeWallpaper {
-                width: 25vw;
-                height: 20vh;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            #date {
-                font-size: 55px;
-            }
-
-            #reloj {
-                font-size: 120px;
-            }
-
-            .changeWallpaper {
-                width: 25vw;
-                height: 20vh;
-            }
-        }
-
-        @media (min-width: 1700px) {
-            #date {
-                font-size: 75px;
-            }
-
-            #reloj {
-                font-size: 170px;
-            }
-
-            .changeWallpaper {
-                width: 20vw;
-                height: 20vh;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 
 <body>
@@ -182,179 +21,32 @@
         <section id="datetime-container">
             <p id="date" class="vidrio-esmerilado"></p>
             <time id="reloj" datetime="" class="vidrio-esmerilado">--:--:--</time>
-            <div id="wallpaperNext" class="changeWallpaper"></div>
             <div id="WallpaperLast" class="changeWallpaper"></div>
+            <div id="wallpaperNext" class="changeWallpaper"></div>
         </section>
+
+        <section id="wallpaper-selection">
+            <!-- grid with wallpaper options as images. Select one to choose and change the background. Images are on ./wallpapers/as image/ -->
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 1" class="wallpaper-option"
+                data-wallpaper="vdd(3).mp4">
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 2" class="wallpaper-option"
+                data-wallpaper="vdd(5).mp4">
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 3" class="wallpaper-option"
+                data-wallpaper="vdd(14).mp4">
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 4" class="wallpaper-option"
+                data-wallpaper="vdd(13).mp4">
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 5" class="wallpaper-option"
+                data-wallpaper="vdd(9).mp4">
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 6" class="wallpaper-option"
+                data-wallpaper="vdd(10).mp4">
+            <img src="./wallpapers/as image/vdd(3).avif" alt="Wallpaper 7" class="wallpaper-option"
+                data-wallpaper="vdd(4).mp4">
+        </section>
+
         <section id="debug-info">INFO</section>
     </container>
 
-
-    <script>
-        const TIMEZONE = "America/Costa_Rica";
-        const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-        const elementoReloj = document.getElementById('reloj');
-        const elementoFecha = document.getElementById('date');
-
-        // Cache for date formatting to avoid repeated calculations
-        let lastDate = null;
-        let cachedFecha = '';
-
-        function obtenerFechaLocal() {
-            return new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE }));
-        }
-
-        function formatearHora(fecha) {
-            const horas = String(fecha.getHours()).padStart(2, '0');
-            const minutos = String(fecha.getMinutes()).padStart(2, '0');
-            const segundos = String(fecha.getSeconds()).padStart(2, '0');
-            return `${horas}:${minutos}:${segundos}`;
-        }
-
-        function formatearFecha(fecha) {
-            const dia = fecha.getDate();
-            // Only recalculate if date changed
-            if (lastDate !== dia) {
-                lastDate = dia;
-                const anio = fecha.getFullYear();
-                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-                const diaStr = String(dia).padStart(2, '0');
-                const diaSemana = DIAS_SEMANA[fecha.getDay()];
-                cachedFecha = `${diaSemana}, ${anio}-${mes}-${diaStr}`;
-            }
-            return cachedFecha;
-        }
-
-        function actualizar() {
-            const ahora = obtenerFechaLocal();
-            const horaTexto = formatearHora(ahora);
-            const fechaTexto = formatearFecha(ahora);
-
-            elementoReloj.textContent = horaTexto;
-            elementoReloj.setAttribute('datetime', horaTexto);
-            elementoFecha.textContent = fechaTexto;
-        }
-
-        actualizar();
-        setInterval(actualizar, 1000);
-
-        const wallpapers = [
-            "vdd(3).mp4",
-            "vdd(5).mp4",
-            "vdd(14).mp4",
-            "vdd(13).mp4",
-            "vdd(9).mp4",
-            "vdd(10).mp4",
-            "vdd(4).mp4",
-            "vdd(1).mp4",
-            "vdd(2).mp4",
-            "vdd(8).mp4",
-            "vdd(12).mp4",
-            "vdd(15).mp4",
-            "vdd(7).mp4",
-            "vdd(11).mp4",
-            "vdd(6).mp4",
-            "vdd(16).webm",
-            "vdd(17).webm",
-            "vdd(18).mp4",
-        ];
-
-        const wallpaperNext = document.getElementById('wallpaperNext');
-        const WallpaperLast = document.getElementById('WallpaperLast');
-        const reloj = document.getElementById('reloj');
-        const videoElement = document.getElementById('myVideo');
-        let currentWallpaper = parseInt(localStorage.getItem('currentWallpaper') || '0');
-
-        videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
-
-        function changeWallpaper(movement) {
-            if (movement === 'next') {
-                currentWallpaper = (currentWallpaper + 1) % wallpapers.length;
-            } else if (movement === 'last') {
-                currentWallpaper = (currentWallpaper - 1 + wallpapers.length) % wallpapers.length;
-            }
-            videoElement.src = `./wallpapers/${wallpapers[currentWallpaper]}`;
-            localStorage.setItem('currentWallpaper', currentWallpaper);
-        }
-
-        wallpaperNext.addEventListener('click', () => changeWallpaper('next'));
-        WallpaperLast.addEventListener('click', () => changeWallpaper('last'));
-
-        // Date click fullscreen
-        elementoFecha.addEventListener('click', () => {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                document.documentElement.requestFullscreen().catch(() => { });
-            }
-        });
-
-        reloj.addEventListener('click', () => {
-            playPause();
-        });
-        reloj.addEventListener('contextmenu', () => {
-            switchDebugInfo();
-        });
-
-        function playPause() {
-            if (videoElement.paused) {
-                videoElement.play();
-            } else {
-                videoElement.pause();
-            }
-        }
-        function switchDebugInfo() {
-            const debugInfo = document.getElementById('debug-info');
-            if (debugInfo.style.display === 'none') {
-                debugInfo.style.display = 'block';
-                displayDebugInfo();
-            } else {
-                debugInfo.style.display = 'none';
-            }
-        }
-        function displayDebugInfo() {
-            const debugInfo = document.getElementById('debug-info');
-            const wScreen = window.screen;
-            debugInfo.innerHTML = `Version:202610051<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
-        }
-
-        /* window.addEventListener('resize', () => {
-            displayDebugInfo();
-        });
-        switchDebugInfo();
-        switchDebugInfo(); */
-
-
-
-        /* CTRL ALT SHIFT PageUp keys pressed */
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.altKey && e.shiftKey && e.code === 'PageUp') {
-                downloadFile();
-            }
-        });
-
-        function downloadFile() {
-            const fileName = 'doc-20261108.pdf';
-
-            if (!fileExists(`./bridge/${fileName}`)) {
-                elementoFecha.style.color = 'red';
-                return;
-            }
-
-            const link = document.createElement('a');
-            link.href = `./bridge/${fileName}`;
-            link.download = 'Print.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        function fileExists(url) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('HEAD', url, false);
-            xhr.send();
-            return xhr.status !== 404;
-        }
-    </script>
+    <script src="./js/main.js" defer></script>
 
 </body>
 
