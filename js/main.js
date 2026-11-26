@@ -171,7 +171,7 @@ function switchDebugInfo() {
 function displayDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	const wScreen = window.screen;
-	debugInfo.innerHTML = `Version:202611263<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
+	debugInfo.innerHTML = `Version:202611264<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
 }
 
 window.addEventListener('resize', () => {
