@@ -95,17 +95,27 @@ WALLPAPER FUNCTIONALITY
 const wallpaperNext = document.getElementById('wallpaperNext');
 const WallpaperLast = document.getElementById('WallpaperLast');
 const videoElement = document.getElementById('myVideo');
+const wallpaperSelection = document.getElementById('wallpaper-selection');
 let currentWallpaper = localStorage.getItem('currentWallpaper')
 
-/* get and set current set wallpaper from localstorage */
-
 videoElement.src = `./wallpapers/${currentWallpaper}`;
+
+wallpapers.forEach((wallpaper, index) => {
+	const option = document.createElement('img');
+	const thumbnail = wallpaper.replace(/\.[^.]+$/, '.avif');
+
+	option.src = `./wallpapers/as image/${thumbnail}`;
+	option.alt = `Wallpaper ${index + 1}`;
+	option.className = 'wallpaper-option';
+	option.dataset.wallpaper = wallpaper;
+	option.addEventListener('click', () => changeWallpaper(option));
+	wallpaperSelection.appendChild(option);
+});
 
 function changeWallpaper(infoSelection) {
 	let videoElementToSet = infoSelection.dataset.wallpaper
 	videoElement.src = `./wallpapers/${videoElementToSet}`;
 	localStorage.setItem('currentWallpaper', videoElementToSet);
-
 	hideWallpaperSelection()
 }
 
@@ -165,8 +175,8 @@ function displayDebugInfo() {
 window.addEventListener('resize', () => {
 	displayDebugInfo();
 });
-switchDebugInfo();
-switchDebugInfo();
+/* switchDebugInfo();
+switchDebugInfo(); */
 
 
 

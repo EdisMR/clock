@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Anual - Material Design 3</title>
+    <!-- Fuentes de Google y Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* Variables de Material Design 3 (Light Theme) */
+        :root {
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005E;
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-outline-variant: #CAC4D0;
+            --md-sys-color-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #F3F3F8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        /* Contenedor principal de la vista anual */
+        .year-container {
+            background-color: var(--md-sys-color-surface);
+            border-radius: 28px;
+            box-shadow: 0 4px 20px var(--md-sys-color-shadow);
+            width: 100%;
+            max-width: 960px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Cabecera general con el Año y los botones de navegación anual */
+        .year-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+        }
+
+        .year-display {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .nav-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--md-sys-color-on-surface-variant);
+            transition: background-color 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Cuadrícula de 12 meses (3 columnas x 4 filas en pantallas grandes) */
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .months-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 580px) {
+            .months-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tarjeta individual para cada mes */
+        .mini-month {
+            background-color: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mini-month-title {
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: capitalize;
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 2px;
+        }
+
+        /* Días de la semana abreviados (Lunes a Domingo) */
+        .mini-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--md-sys-color-outline);
+        }
+
+        /* Celdas de días del mini mes */
+        .mini-days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            row-gap: 2px;
+        }
+
+        .mini-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            border-radius: 50%;
+            margin: auto;
+            width: 26px;
+            height: 26px;
+            color: var(--md-sys-color-on-surface);
+            user-select: none;
+        }
+
+        /* Días fuera del mes actual */
+        .mini-day.outside {
+            color: var(--md-sys-color-outline);
+            opacity: 0.35;
+        }
+
+        /* Día de hoy en la vista general */
+        .mini-day.today {
+            border: 1.5px solid var(--md-sys-color-primary);
+            font-weight: 700;
+        }
+
+
+        /* Variables de Material Design 3 (Dark Theme) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-sys-color-primary: #D0BCFF;
+                --md-sys-color-on-primary: #381E72;
+                --md-sys-color-primary-container: #4F378B;
+                --md-sys-color-on-primary-container: #EADDFF;
+                --md-sys-color-surface: rgb(52, 50, 59);
+                --md-sys-color-on-surface: #E6E1E5;
+                --md-sys-color-surface-variant: #49454F;
+                --md-sys-color-on-surface-variant: #CAC4D0;
+                --md-sys-color-outline: #938F99;
+                --md-sys-color-outline-variant: #49454F;
+                --md-sys-color-shadow: rgba(0, 0, 0, 0.5);
+            }
+
+            body {
+                background-color: #121212;
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+
+        /* printing style */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+            }
+
+            .year-container {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+
+            .mini-month {
+                border: 1px solid #000;
+            }
+
+            .icon-btn {
+                display: none;
+            }
+
+            .mini-day.today {
+                border: none;
+                font-weight: normal;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="year-container">
+        <!-- Cabecera global -->
+        <div class="year-header">
+            <span id="yearDisplay" class="year-display">2026</span>
+            <div class="nav-group">
+                <button class="icon-btn" id="prevYearBtn" title="Año anterior">
+                    <span class="material-symbols-rounded">chevron_left</span>
+                </button>
+                <button class="icon-btn" id="nextYearBtn" title="Año siguiente">
+                    <span class="material-symbols-rounded">chevron_right</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Contenedor donde se generan los 12 meses -->
+        <div class="months-grid" id="monthsGrid"></div>
+    </div>
+
+    <script>
+        const yearDisplay = document.getElementById('yearDisplay');
+        const monthsGrid = document.getElementById('monthsGrid');
+        const prevYearBtn = document.getElementById('prevYearBtn');
+        const nextYearBtn = document.getElementById('nextYearBtn');
+
+        let currentYear = new Date().getFullYear();
+
+        const monthsNames = [
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ];
+
+        function renderYearView() {
+            // Actualizar etiqueta del año principal
+            yearDisplay.textContent = currentYear;
+            monthsGrid.innerHTML = '';
+
+            const today = new Date();
+
+            // Generar los 12 meses
+            for (let m = 0; m < 12; m++) {
+                const monthCard = document.createElement('div');
+                monthCard.classList.add('mini-month');
+
+                // Título del mes
+                const title = document.createElement('div');
+                title.classList.add('mini-month-title');
+                title.textContent = monthsNames[m];
+                monthCard.appendChild(title);
+
+                // Días de la semana (L a D)
+                const weekdays = document.createElement('div');
+                weekdays.classList.add('mini-weekdays');
+                ['L', 'M', 'X', 'J', 'V', 'S', 'D'].forEach(day => {
+                    const span = document.createElement('span');
+                    span.textContent = day;
+                    weekdays.appendChild(span);
+                });
+                monthCard.appendChild(weekdays);
+
+                // Cuadrícula de días
+                const daysContainer = document.createElement('div');
+                daysContainer.classList.add('mini-days-grid');
+
+                const firstDayIndex = (new Date(currentYear, m, 1).getDay() + 6) % 7;
+                const totalDaysCurrent = new Date(currentYear, m + 1, 0).getDate();
+                const totalDaysPrev = new Date(currentYear, m, 0).getDate();
+
+                // 1. Días del mes anterior (relleno inicial)
+                for (let i = firstDayIndex; i > 0; i--) {
+                    const dayNum = totalDaysPrev - i + 1;
+                    const cell = createMiniDay(dayNum, true);
+                    daysContainer.appendChild(cell);
+                }
+
+                // 2. Días del mes actual
+                for (let i = 1; i <= totalDaysCurrent; i++) {
+                    const cell = createMiniDay(i, false);
+
+                    if (
+                        i === today.getDate() &&
+                        m === today.getMonth() &&
+                        currentYear === today.getFullYear()
+                    ) {
+                        cell.classList.add('today');
+                    }
+
+                    daysContainer.appendChild(cell);
+                }
+
+                // 3. Días del mes siguiente (completar cuadrícula a 35 o 42 celdas)
+                const totalRendered = firstDayIndex + totalDaysCurrent;
+                const remaining = totalRendered <= 35 ? 35 - totalRendered : 42 - totalRendered;
+                for (let i = 1; i <= remaining; i++) {
+                    const cell = createMiniDay(i, true);
+                    daysContainer.appendChild(cell);
+                }
+
+                monthCard.appendChild(daysContainer);
+                monthsGrid.appendChild(monthCard);
+            }
+        }
+
+        function createMiniDay(dayNum, isOutside) {
+            const cell = document.createElement('div');
+            cell.classList.add('mini-day');
+            if (isOutside) {
+                cell.classList.add('outside');
+            }
+            cell.textContent = dayNum;
+            return cell;
+        }
+
+        // Navegación de años
+        prevYearBtn.addEventListener('click', () => {
+            currentYear--;
+            renderYearView();
+        });
+
+        nextYearBtn.addEventListener('click', () => {
+            currentYear++;
+            renderYearView();
+        });
+
+        // Inicializar vista al cargar
+        renderYearView();
+    </script>
+</body>
+
+</html>

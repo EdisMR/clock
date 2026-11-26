@@ -56,6 +56,7 @@ body {
 	position: fixed;
 	top: 0;
 	left: 0;
+	z-index: -1;
 }
 
 .changeWallpaper {
@@ -160,10 +161,9 @@ body {
 
 #wallpaper-selection {
 	position: absolute;
-	top: 50px;
-	left: 50px;
-	width: 90vw;
-	height: 90vh;
+	top: 20px;
+	left: 20px;
+	width: calc(100vw - 50px);
 	background-color: rgba(0, 0, 0, 0.589);
 	border-radius: 10px;
 	display: grid;
@@ -180,8 +180,9 @@ body {
 	width: 100%;
 	height: auto;
 	cursor: pointer;
-	border-radius: 10px;
 	transition: transform 0.2s ease-in-out;
+	border: 2px solid rgba(151, 151, 151, 0.616);
+	border-radius: 10px;
 }
 
 #wallpaper-selection img:hover {
@@ -205,5 +206,14 @@ body {
 }
 
 .animated-wallpaper-selection {
-	animation: appearWallpaperSelection 0.3s ease-in-out;
+	animation: appearWallpaperSelection 0.3s ease-in
+}
+
+.links {
+	display: flex;
+	justify-content: center;
+	gap: 70px;
+	margin-top: 20px;
+	z-index: 1000;
+	color: #ffffff;
 }
