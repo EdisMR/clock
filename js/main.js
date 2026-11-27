@@ -14,6 +14,9 @@ const wallpapers = [
 	"vdd(1).mp4",
 	"vdd(2).mp4",
 	"vdd(8).mp4",
+	"vdd(19).mp4",
+	"vdd(20).mp4",
+	"vdd(21).mp4",
 	"vdd(12).mp4",
 	"vdd(15).mp4",
 	"vdd(7).mp4",
@@ -106,6 +109,8 @@ const wallpaperSelection = document.getElementById('wallpaper-selection');
 let currentWallpaper = localStorage.getItem('currentWallpaper')
 
 videoElement.children[0].src = `./wallpapers/${currentWallpaper}`;
+videoElement.load();
+videoElement.play().catch(() => { });
 
 wallpapers.forEach((wallpaper, index) => {
 	const option = document.createElement('img');
@@ -192,7 +197,7 @@ function switchDebugInfo() {
 function displayDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	const wScreen = window.screen;
-	debugInfo.innerHTML = `Version:202611271<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits<br>Color Depth: ${wScreen.colorDepth} bits<br>Current Wallpaper: ${currentWallpaper}`;
+	debugInfo.innerHTML = `Version:202611272<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits<br>Color Depth: ${wScreen.colorDepth} bits<br>Current Wallpaper: ${currentWallpaper}`;
 }
 
 window.addEventListener('resize', () => {
