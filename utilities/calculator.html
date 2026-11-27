@@ -4,15 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora Material Design 3</title>
+  <title>Calculadora</title>
+  <link rel="icon" type="image/png" href="../82280.png">
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../css/tailwind 3.4.17.css"></script>
   <!-- Google Fonts: Roboto & Roboto Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet" />
+  <link href="../css/fonts.css" rel="stylesheet" />
   <style>
     /* ==========================================================================
        SISTEMA DE DISEÑO MATERIAL DESIGN 3 (VARIABLES CSS - MODO CLARO Y OSCURO)
@@ -280,54 +277,54 @@
     }
 
     /* Respaldo de layout principal y panel de historial en escritorio */
-main {
-  max-width: 64rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+    main {
+      max-width: 64rem;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-header {
-  max-width: 64rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1rem 1rem 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    header {
+      max-width: 64rem;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem 1rem 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-@media (min-width: 1024px) {
-  main {
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: center;
-  }
+    @media (min-width: 1024px) {
+      main {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+      }
 
-  main > section[aria-label="Calculadora"] {
-    width: 450px;
-    flex-shrink: 0;
-  }
+      main>section[aria-label="Calculadora"] {
+        width: 450px;
+        flex-shrink: 0;
+      }
 
-  #history-panel {
-    position: static !important;
-    inset: auto !important;
-    transform: none !important;
-    height: auto !important;
-    flex: 1 1 0% !important;
-    max-width: 28rem !important;
-    border-radius: 28px !important;
-  }
+      #history-panel {
+        position: static !important;
+        inset: auto !important;
+        transform: none !important;
+        height: auto !important;
+        flex: 1 1 0% !important;
+        max-width: 28rem !important;
+        border-radius: 28px !important;
+      }
 
-  #history-backdrop,
-  #mobile-history-btn,
-  #close-history-btn {
-    display: none !important;
-  }
-}
+      #history-backdrop,
+      #mobile-history-btn,
+      #close-history-btn {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 

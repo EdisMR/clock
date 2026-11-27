@@ -121,8 +121,15 @@ wallpapers.forEach((wallpaper, index) => {
 
 function changeWallpaper(infoSelection) {
 	let videoElementToSet = infoSelection.dataset.wallpaper
+
+	/* if wallpaper is the same, don't do anything */
+	if (videoElementToSet === currentWallpaper) {
+		return;
+	}
+
 	videoElement.children[0].src = `./wallpapers/${videoElementToSet}`;
 	localStorage.setItem('currentWallpaper', videoElementToSet);
+	currentWallpaper = videoElementToSet;
 	videoElement.load();
 	videoElement.play().catch(() => { });
 	hideWallpaperSelection()
@@ -141,15 +148,24 @@ function playPause() {
 	}
 }
 
+var wallpaperDisplayed = false;
 function displayWallpaperSelection() {
+	if (wallpaperDisplayed) {
+		return;
+	}
 	const wallpaperSelection = document.getElementById('wallpaper-selection');
 	wallpaperSelection.style.display = 'grid';
 	wallpaperSelection.classList.add('animated-wallpaper-selection');
+	wallpaperDisplayed = true;
+	setTimeout(() => {
+		hideWallpaperSelection();
+	}, 15000);
 }
 function hideWallpaperSelection() {
 	const wallpaperSelection = document.getElementById('wallpaper-selection');
-	wallpaperSelection.style.display = 'none';
 	wallpaperSelection.classList.remove('animated-wallpaper-selection');
+	wallpaperSelection.style.display = 'none';
+	wallpaperDisplayed = false;
 }
 
 
@@ -171,7 +187,7 @@ function switchDebugInfo() {
 function displayDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	const wScreen = window.screen;
-	debugInfo.innerHTML = `Version:202611264<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
+	debugInfo.innerHTML = `Version:202611265<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
 }
 
 window.addEventListener('resize', () => {
