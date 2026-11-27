@@ -49,7 +49,7 @@ body {
 }
 
 #myVideo {
-	filter: brightness(0.73);
+	filter: brightness(0.9);
 	width: 100vw;
 	height: 100vh;
 	object-fit: cover;
@@ -163,7 +163,7 @@ body {
 	position: absolute;
 	top: 20px;
 	left: 20px;
-	width: calc(100vw - 50px);
+	width: calc(100vw - 100px);
 	background-color: rgba(0, 0, 0, 0.589);
 	border-radius: 10px;
 	display: grid;
@@ -179,7 +179,8 @@ body {
 
 #wallpaper-selection img {
 	width: 100%;
-	height: auto;
+	height: 180px;
+	object-fit: cover;
 	cursor: pointer;
 	transition: transform 0.2s ease-in-out;
 	border: 2px solid rgba(151, 151, 151, 0.616);
@@ -221,7 +222,8 @@ body {
 .links a {
 	color: #ffffff;
 	text-decoration: none;
-	font-weight: lighter;
-	font-size: 16px;
+	font-weight: 300;
+	font-size: 18px;
 	transition: color 0.2s ease-in-out;
+	padding: 10px 20px;
 }

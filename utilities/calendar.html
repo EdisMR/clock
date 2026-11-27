@@ -38,8 +38,10 @@
         body {
             background-color: #F3F3F8;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 40px;
             min-height: 100vh;
             padding: 24px;
             color: var(--md-sys-color-on-surface);
@@ -252,6 +254,10 @@
         <div class="months-grid" id="monthsGrid"></div>
     </div>
 
+    <footer>
+        <p class="text-xs opacity-70 text-center mt-4">Realizado por Edis MR</p>
+    </footer>
+
     <script>
         const yearDisplay = document.getElementById('yearDisplay');
         const monthsGrid = document.getElementById('monthsGrid');
@@ -283,10 +289,10 @@
                 title.textContent = monthsNames[m];
                 monthCard.appendChild(title);
 
-                // Días de la semana (L a D)
+                // Días de la semana (D a S)
                 const weekdays = document.createElement('div');
                 weekdays.classList.add('mini-weekdays');
-                ['L', 'M', 'X', 'J', 'V', 'S', 'D'].forEach(day => {
+                ['D', 'L', 'M', 'X', 'J', 'V', 'S'].forEach(day => {
                     const span = document.createElement('span');
                     span.textContent = day;
                     weekdays.appendChild(span);
@@ -297,7 +303,7 @@
                 const daysContainer = document.createElement('div');
                 daysContainer.classList.add('mini-days-grid');
 
-                const firstDayIndex = (new Date(currentYear, m, 1).getDay() + 6) % 7;
+                const firstDayIndex = new Date(currentYear, m, 1).getDay();
                 const totalDaysCurrent = new Date(currentYear, m + 1, 0).getDate();
                 const totalDaysPrev = new Date(currentYear, m, 0).getDate();
 
@@ -334,6 +340,8 @@
                 monthCard.appendChild(daysContainer);
                 monthsGrid.appendChild(monthCard);
             }
+            // Desplazarse al mes actual si el año coincide
+            scrollToCurrentDate();
         }
 
         function createMiniDay(dayNum, isOutside) {
@@ -359,6 +367,17 @@
 
         // Inicializar vista al cargar
         renderYearView();
+
+        function scrollToCurrentDate() {
+            const today = new Date();
+            if (today.getFullYear() === currentYear) {
+                const monthIndex = today.getMonth();
+                const monthCard = monthsGrid.children[monthIndex];
+                if (monthCard) {
+                    monthCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
     </script>
 </body>
 

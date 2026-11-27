@@ -149,15 +149,18 @@ function playPause() {
 }
 
 var wallpaperDisplayed = false;
+let wallpaperSelectionTimeout;
+
 function displayWallpaperSelection() {
 	if (wallpaperDisplayed) {
+		hideWallpaperSelection();
 		return;
 	}
 	const wallpaperSelection = document.getElementById('wallpaper-selection');
 	wallpaperSelection.style.display = 'grid';
 	wallpaperSelection.classList.add('animated-wallpaper-selection');
 	wallpaperDisplayed = true;
-	setTimeout(() => {
+	wallpaperSelectionTimeout = setTimeout(() => {
 		hideWallpaperSelection();
 	}, 15000);
 }
@@ -166,7 +169,9 @@ function hideWallpaperSelection() {
 	wallpaperSelection.classList.remove('animated-wallpaper-selection');
 	wallpaperSelection.style.display = 'none';
 	wallpaperDisplayed = false;
+	clearTimeout(wallpaperSelectionTimeout);
 }
+
 
 
 /*
@@ -187,7 +192,7 @@ function switchDebugInfo() {
 function displayDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	const wScreen = window.screen;
-	debugInfo.innerHTML = `Version:202611265<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits`;
+	debugInfo.innerHTML = `Version:202611271<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits<br>Color Depth: ${wScreen.colorDepth} bits<br>Current Wallpaper: ${currentWallpaper}`;
 }
 
 window.addEventListener('resize', () => {
