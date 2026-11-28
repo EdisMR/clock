@@ -197,7 +197,7 @@ function switchDebugInfo() {
 function displayDebugInfo() {
 	const debugInfo = document.getElementById('debug-info');
 	const wScreen = window.screen;
-	debugInfo.innerHTML = `Version:202611272<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits<br>Color Depth: ${wScreen.colorDepth} bits<br>Current Wallpaper: ${currentWallpaper}`;
+	debugInfo.innerHTML = `Version:202611281<br>Screen: ${wScreen.width}x${wScreen.height}<br>Page Size: ${window.innerWidth}x${window.innerHeight}<br>Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}<br>Pixel Depth: ${wScreen.pixelDepth} bits<br>Color Depth: ${wScreen.colorDepth} bits<br>Current Wallpaper: ${currentWallpaper}`;
 }
 
 window.addEventListener('resize', () => {

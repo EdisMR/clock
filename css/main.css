@@ -167,6 +167,15 @@ body {
 	.changeWallpaper {
 		height: 20vh;
 	}
+
+	#wallpaper-selection {
+		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+		width: calc(100vw - 50px);
+	}
+
+	#wallpaper-selection img {
+		height: 80px;
+	}
 }
 
 @media (min-width: 601px) and (max-width: 1200px) {
@@ -181,6 +190,15 @@ body {
 	.changeWallpaper {
 		width: 25vw;
 		height: 20vh;
+	}
+
+	#wallpaper-selection {
+		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		width: calc(100vw - 50px);
+	}
+
+	#wallpaper-selection img {
+		height: 110px;
 	}
 }
 
@@ -197,14 +215,19 @@ body {
 		width: 25vw;
 		height: 20vh;
 	}
+
 	#wallpaper-selection img {
 		height: 100px;
 	}
 }
 
 @media (min-width: 1500px) {
+	#wallpaper-selection {
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		width: calc(100vw - 50px);
+	}
 	#wallpaper-selection img {
-		height: 150px;
+		height: 120px;
 	}
 }
 

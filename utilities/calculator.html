@@ -325,11 +325,13 @@
         display: none !important;
       }
     }
+
     @media (max-width: 1024px) {
       main>section[aria-label="Calculadora"] {
         width: 360px;
       }
-      main>section[aria-label="Calculadora"]{
+
+      main>section[aria-label="Calculadora"] {
         margin: 0 auto;
       }
     }
@@ -351,7 +353,7 @@
       </div>
       <div>
         <h1 class="text-lg sm:text-xl font-bold tracking-tight leading-tight">Calculadora</h1>
-        <p class="text-xs opacity-70 hidden sm:block">Realizado por Edis MR</p>
+        <p class="text-xs opacity-70 sm:block">Realizado por Edis MR</p>
       </div>
     </div>
 
@@ -757,6 +759,17 @@
         return `${sign}${formattedInt}`;
       }
 
+      function formatResultDisplay(numStr) {
+        if (numStr === 'Error' || numStr === 'No se puede dividir entre 0') return numStr;
+
+        const num = Number(numStr);
+        if (!Number.isFinite(num)) return numStr;
+
+        const roundedStr = num.toFixed(4)
+          .replace(/\.?0+$/, '');
+        return formatNumberDisplay(roundedStr);
+      }
+
       /* ------------------------------------------------------------------------
          5. OPERACIONES DE LA CALCULADORA (DÍGITOS, OPERADORES, BORRAR, IGUAL)
          ------------------------------------------------------------------------ */
@@ -902,7 +915,7 @@
         try {
           const numericResult = evaluateTokens(evalTokens);
           const rawResultStr = String(numericResult);
-          const formattedResult = formatNumberDisplay(rawResultStr);
+          const formattedResult = formatResultDisplay(rawResultStr);
 
           // Guardar en historial solo si hubo al menos una operación (3+ tokens)
           if (evalTokens.length >= 3) {
@@ -958,7 +971,7 @@
         if (previewTokens.length >= 3 && !OPERATORS.includes(previewTokens[previewTokens.length - 1])) {
           try {
             const liveVal = evaluateTokens(previewTokens);
-            elResult.textContent = formatNumberDisplay(String(liveVal));
+            elResult.textContent = formatResultDisplay(String(liveVal));
             elStatus.textContent = 'Vista previa';
           } catch (e) {
             elResult.textContent = e.message === 'División por cero' ? '÷ 0 indefinido' : '...';
@@ -969,7 +982,7 @@
           const activeNum = state.currentInput !== ''
             ? state.currentInput
             : (state.tokens.length >= 2 ? state.tokens[state.tokens.length - 2] : '0');
-          elResult.textContent = formatNumberDisplay(activeNum);
+          elResult.textContent = formatResultDisplay(activeNum);
           elStatus.textContent = 'Expresión';
         }
 
